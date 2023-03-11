@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as S from "./styles";
 import HeaderButton from "./header-button";
 import { StyledContainer, Overlay } from "../../global-styles";
 import CreateAdvForm from "../create-adv-form";
+import Queries from "../../services/queries.service";
 
 function Header({ isAuth }) {
+    useEffect(() => {
+        Queries.getCurrentUser().then((user) => console.log(user.data));
+    });
+
     const [visibleAddAdv, setVisibleAddAdv] = useState();
     return (
         <S.Header>

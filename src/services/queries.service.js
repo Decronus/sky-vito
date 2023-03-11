@@ -1,6 +1,10 @@
 import axiosInstance from "../axios";
 
 class Queries {
+    getCurrentUser() {
+        return axiosInstance.get("user");
+    }
+
     getAllAds() {
         return axiosInstance.get("ads");
     }
@@ -15,6 +19,14 @@ class Queries {
 
     postRegUser(body) {
         return axiosInstance.post("auth/register", body);
+    }
+
+    postLogin(body) {
+        return axiosInstance.post("auth/login", body);
+    }
+
+    postUpdateTokens(body) {
+        return axiosInstance.put("auth/login", body);
     }
 }
 

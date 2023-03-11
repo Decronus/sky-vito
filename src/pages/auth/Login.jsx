@@ -1,14 +1,40 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import LogoAuth from "../../assets/static/logo_auth.svg";
-// import { REGISTRATION_ROUTE } from "../../utils/consts";
 import * as S from "./styles";
 import MainButton from "../../components/main-button";
+import Queries from "../../services/queries.service";
+import { useNavigate } from "react-router-dom";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";
 
 function Login() {
-    const { pathname } = useLocation();
+    const navigate = useNavigate();
 
-    // const isSignUp = pathname === REGISTRATION_ROUTE;
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    function login(event) {
+        event.preventDefault();
+        if (email && password) {
+            const body = {
+                email: email,
+                password: password,
+            };
+
+            Queries.postLogin(body)
+                .then((response) => {
+                    console.log(response.data);
+                    localStorage.setItem(
+                        ACCESS_TOKEN,
+                        response.data.access_token
+                    );
+                    localStorage.setItem(
+                        REFRESH_TOKEN,
+                        response.data.refresh_token
+                    );
+                })
+                .then(() => navigate("/"));
+        }
+    }
 
     return (
         <S.Auth>
@@ -16,10 +42,22 @@ function Login() {
                 <img src={LogoAuth} alt="logo" />
 
                 <S.AuthForm>
-                    <S.AuthFormInput placeholder="email" type="email" />
-                    <S.AuthFormInput placeholder="Пароль" type="password" />
+                    <S.AuthFormInput
+                        placeholder="email"
+                        type="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                    />
+                    <S.AuthFormInput
+                        placeholder="Пароль"
+                        type="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                    />
 
-                    <MainButton type="submit">Войти</MainButton>
+                    <MainButton type="submit" onClick={login}>
+                        Войти
+                    </MainButton>
                     <S.SignUpLink to="/registration">
                         Зарегистрироваться
                     </S.SignUpLink>
