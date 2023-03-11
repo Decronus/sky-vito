@@ -1,8 +1,9 @@
 import axiosInstance from "../axios";
+import { auth } from "../axios";
 
 class Queries {
     getCurrentUser() {
-        return axiosInstance.get("user");
+        return axiosInstance.get("user", { headers: auth() });
     }
 
     getAllAds() {

@@ -59,7 +59,7 @@ function ProfileDataForm() {
                             Имя
                         </S.DataFormLabel>
                         <S.DataFormInput
-                            defaultValue="Укажите имя"
+                            placeholder="Имя"
                             type="text"
                             name="first-name"
                             onFocus={() => nameRef.current.focus()}
@@ -71,7 +71,7 @@ function ProfileDataForm() {
                             Фамилия
                         </S.DataFormLabel>
                         <S.DataFormInput
-                            defaultValue="Укажите фамилию"
+                            placeholder="Фамилия"
                             type="text"
                             name="last-name"
                             onFocus={() => surnameRef.current.focus()}
@@ -85,7 +85,7 @@ function ProfileDataForm() {
                         Город
                     </S.DataFormLabel>
                     <S.DataFormInput
-                        defaultValue="Санкт-Петербург"
+                        placeholder="Город"
                         type="text"
                         name="city"
                         onFocus={() => cityRef.current.focus()}
@@ -97,7 +97,7 @@ function ProfileDataForm() {
                         Телефон
                     </S.DataFormLabel>
                     <S.DataFormInput
-                        defaultValue="89123456677"
+                        placeholder="Номер телефона"
                         type="tel"
                         name="phone"
                         onFocus={() => phoneRef.current.focus()}

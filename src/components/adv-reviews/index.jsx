@@ -3,8 +3,12 @@ import * as S from "./styles";
 import MainButton from "../main-button";
 import testImg from "../../assets/static/test.jpg";
 import CloseFormButton from "../close-form-button";
+import { userSelector } from "../../store/selectors/main";
+import { useSelector } from "react-redux";
 
 function AdvReviews({ closeForm }) {
+    const currentUser = useSelector(userSelector);
+
     return (
         <S.ReviewsBack>
             <S.ReviewsBlock>
@@ -13,18 +17,23 @@ function AdvReviews({ closeForm }) {
                     <CloseFormButton onClick={closeForm} />
                 </S.ReviewTitleWrapper>
                 <S.OverflowBlock>
-                    <S.Subtitle>Добавить отзыв</S.Subtitle>
-                    <S.ReviewSendForm>
-                        <S.ReviewSendFormInput
-                            type="text"
-                            placeholder="Введите отзыв"
-                        />
-                        <div>
-                            <MainButton active={false} type="submit">
-                                Опубликовать
-                            </MainButton>
-                        </div>
-                    </S.ReviewSendForm>
+                    {currentUser && (
+                        <>
+                            <S.Subtitle>Добавить отзыв</S.Subtitle>
+                            <S.ReviewSendForm>
+                                <S.ReviewSendFormInput
+                                    type="text"
+                                    placeholder="Введите отзыв"
+                                />
+                                <div>
+                                    <MainButton active={false} type="submit">
+                                        Опубликовать
+                                    </MainButton>
+                                </div>
+                            </S.ReviewSendForm>
+                        </>
+                    )}
+
                     <S.ReviewsList>
                         {Array.from({ length: 5 }, (_v, k) => (
                             <S.Review key={k}>

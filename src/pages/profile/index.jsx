@@ -3,7 +3,7 @@ import ProfileDataForm from "../../components/profile-data-form";
 import { StyledContainer } from "../../global-styles";
 import Adv from "../../components/adv";
 import * as S from "./styles";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { userSelector } from "../../store/selectors/main";
 import { useSelector } from "react-redux";
 
@@ -11,6 +11,7 @@ function Profile() {
     const [userAds, user] = useLoaderData();
     const [phoneVisibility, setPhoneVisibility] = useState(false);
 
+    const params = useParams();
     const currentUser = useSelector(userSelector);
 
     const isMyProfile = false;
@@ -18,9 +19,11 @@ function Profile() {
     return (
         <S.Main>
             <StyledContainer>
-                {isMyProfile ? (
+                {currentUser?.id === Number(params.id) ? (
                     <>
-                        <h1>Здравствуйте, {user.name}</h1>
+                        <h1>
+                            Здравствуйте, {user.name ? user.name : user.email}
+                        </h1>
                         <h2>Настройки профиля</h2>
                         <ProfileDataForm />
                         <h2>Мои товары</h2>
