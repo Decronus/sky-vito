@@ -20,23 +20,40 @@ import AdvPage from "./pages/adv/AdvPage";
 import Queries from "./services/queries.service";
 import RootLayout from "./components/root-layout/RootLayout";
 
-async function getUserAds(id) {
-    const allAds = await Queries.getAllAds();
-    const userAds = allAds.data.filter((el) => {
-        return el.user_id === Number(id);
-    });
+class LoaderFunctions {
+    async getAllAds(id) {
+        const ads = await Queries.getAllAds();
 
-    return userAds;
+        return ads.data;
+    }
+
+    async getUserAds(id) {
+        const allAds = await Queries.getAllAds();
+        const userAds = allAds.data.filter((el) => {
+            return el.user_id === Number(id);
+        });
+
+        return userAds;
+    }
+
+    async getUser(id) {
+        const allUsers = await Queries.getAllUsers();
+        const user = allUsers.data.find((el) => {
+            return el.id === Number(id);
+        });
+
+        return user;
+    }
+
+    async getUserAndUserAds(id) {
+        const userAds = await this.getUserAds(id);
+        const user = await this.getUser(id);
+
+        return [userAds, user];
+    }
 }
 
-async function getUser(id) {
-    const allUsers = await Queries.getAllUsers();
-    const user = allUsers.data.find((el) => {
-        return el.id === Number(id);
-    });
-
-    return user;
-}
+const loader = new LoaderFunctions();
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -45,10 +62,7 @@ const router = createBrowserRouter(
                 index
                 path={HOME_ROUTE}
                 element={<Home />}
-                loader={async () => {
-                    const ads = await Queries.getAllAds();
-                    return ads.data;
-                }}
+                loader={loader.getAllAds}
             />
 
             <Route path={SIGNUP_ROUTE} element={<Auth />} />
@@ -58,12 +72,7 @@ const router = createBrowserRouter(
             <Route
                 path={`${PROFILE_ROUTE}/:id`}
                 element={<Profile />}
-                loader={async ({ params }) => {
-                    const userAds = await getUserAds(params.id);
-                    const user = await getUser(params.id);
-
-                    return [userAds, user];
-                }}
+                loader={({ params }) => loader.getUserAndUserAds(params.id)}
             />
             <Route path={`${ADV_ROUTE}/:id`} element={<AdvPage />} />
 
