@@ -1,18 +1,10 @@
-import React from 'react';
-import Header from './components/header';
-import Search from './components/search';
-import AppRoutes from './routes';
-import { GlobalStyle } from './global-styles';
+import React from "react";
+
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
 
 function App() {
-  return (
-    <>
-      <GlobalStyle />
-      <Header />
-      <Search />
-      <AppRoutes />
-    </>
-  );
+    return <RouterProvider router={router} />;
 }
 
 export default App;

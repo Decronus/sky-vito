@@ -1,96 +1,93 @@
-import React, { useState, useRef, useEffect } from 'react';
-import * as S from './styles';
-import CloseFormButton from '../close-form-button';
-import plug from '../../assets/static/add_adv_photo_plug.jpg';
-import MainButton from '../main-button';
-import { patch } from '../../utils/fetch';
-import { useParams } from "react-router-dom";
-import { API_URL } from "../../utils/consts";
+import React, { useState, useRef } from "react";
+import * as S from "./styles";
+import CloseFormButton from "../close-form-button";
+import plug from "../../assets/static/add_adv_photo_plug.jpg";
+import MainButton from "../main-button";
 
+function EditAdvForm({ adv, closeForm }) {
+    const hiddenFileInput = useRef();
 
-function EditAdvForm({ closeForm }) {
-  const params = useParams();
+    const [advImage, setAdvImage] = useState();
 
-  const hiddenFileInput = useRef();
+    const handleClick = (e) => {
+        const { target } = e;
 
-  const [adv, setAdv] = useState({images:[]});
-  const [advImage, setAdvImage] = useState();
+        console.log(target);
+    };
 
-  const handleClick = (e) => {
-    const { target } = e;
+    const handleChange = () => {
+        const fileUploaded = hiddenFileInput.current.files[0];
+        const obj = URL.createObjectURL(fileUploaded);
+        setAdvImage(obj);
+    };
 
-    console.log(target);
-  };
+    return (
+        <S.EditBack>
+            <S.FormWrapper>
+                <S.TitleWrapper>
+                    <h2>Редактировать объявление</h2>
+                    <CloseFormButton onClick={closeForm} />
+                </S.TitleWrapper>
+                <S.Form>
+                    <S.InputWrapper>
+                        <label htmlFor="adv-name">Название</label>
+                        <S.FormInputName
+                            name="adv-name"
+                            placeholder="Введите название"
+                            defaultValue={adv.title}
+                            type="text"
+                        />
+                    </S.InputWrapper>
+                    <S.InputWrapper>
+                        <label htmlFor="adv-description">Описание</label>
+                        <S.FormInputDescription
+                            name="adv-description"
+                            placeholder="Введите описание"
+                            defaultValue={adv.description}
+                            type="text"
+                        />
+                    </S.InputWrapper>
+                    <S.InputWrapper>
+                        <label htmlFor="adv-photo">
+                            Фотографии товара <span>не более 5 фотографий</span>
+                        </label>
+                        <S.FormInputFile
+                            name="adv-photo"
+                            type="file"
+                            accept="image/*"
+                            ref={hiddenFileInput}
+                            onChange={handleChange}
+                        />
 
-  const handleChange = () => {
-    const fileUploaded = hiddenFileInput.current.files[0];
-    const obj = URL.createObjectURL(fileUploaded);
-    setAdvImage(obj);
-  };
-
-  useEffect(() => {
-    getAdv();
-  }, []);
-
-  const getAdv = async () => {
-    const { json } = await patch(`/ads/${params.id}`);
-    setAdv(json);
-  };
-
-  return (
-    <S.FormWrapper>
-      <S.TitleWrapper>
-        <h2>Редактировать объявление</h2>
-        <CloseFormButton onClick={closeForm} />
-      </S.TitleWrapper>
-      <S.Form>
-        <S.InputWrapper>
-          <label htmlFor="adv-name">Название</label>
-          <S.FormInputName
-            name="adv-name"
-            placeholder="Введите название"
-            type="text"
-          >{adv.title}</S.FormInputName>
-        </S.InputWrapper>
-        <S.InputWrapper>
-          <label htmlFor="adv-description">Описание</label>
-          <S.FormInputDescription
-            name="adv-description"
-            placeholder="Введите описание"
-            type="text"> {adv.description}</S.FormInputDescription>
-        </S.InputWrapper>
-        <S.InputWrapper>
-          <label htmlFor="adv-photo">
-            Фотографии товара <span>не более 5 фотографий</span>
-          </label>
-          <S.FormInputFile
-            name="adv-photo"
-            type="file"
-            accept="image/*"
-            ref={hiddenFileInput}
-            onChange={handleChange}
-          />
-
-          <S.FormAdvImages>
-            {Array.from({ length: 5 }, (_v, k) => (
-              <div key={k} onClick={handleClick}>
-                <img src={advImage || plug} alt="название" />
-              </div>
-            ))}
-          </S.FormAdvImages>
-        </S.InputWrapper>
-        <S.InputWrapper>
-          <label htmlFor="adv-price">Цена</label>
-          <S.FormInputPriceWrapper>
-            <S.FormInputPrice name="adv-price" type="number">2 200</S.FormInputPrice>
-          </S.FormInputPriceWrapper>
-        </S.InputWrapper>
-        <div>
-          <MainButton active={false}>Сохранить</MainButton>
-        </div>
-      </S.Form>
-    </S.FormWrapper>
-  );
+                        <S.FormAdvImages>
+                            {Array.from({ length: 5 }, (_v, k) => (
+                                <div key={k} onClick={handleClick}>
+                                    <img
+                                        src={advImage || plug}
+                                        alt="название"
+                                    />
+                                </div>
+                            ))}
+                        </S.FormAdvImages>
+                    </S.InputWrapper>
+                    <S.InputWrapper>
+                        <label htmlFor="adv-price">Цена</label>
+                        <S.FormInputPriceWrapper>
+                            <S.FormInputPrice
+                                name="adv-price"
+                                type="number"
+                                placeholder="Введите цену"
+                                defaultValue={adv.price}
+                            />
+                        </S.FormInputPriceWrapper>
+                    </S.InputWrapper>
+                    <div>
+                        <MainButton active={false}>Сохранить</MainButton>
+                    </div>
+                </S.Form>
+            </S.FormWrapper>
+        </S.EditBack>
+    );
 }
 
 export default EditAdvForm;

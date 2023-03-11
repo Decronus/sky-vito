@@ -1,12 +1,16 @@
 import axiosInstance from "../axios";
 
 class Queries {
-    getAllAdv() {
+    getAllAds() {
         return axiosInstance.get("ads");
     }
 
     getAdvById(id) {
         return axiosInstance.get(`ads/${id}`);
+    }
+
+    getAllUsers() {
+        return axiosInstance.get("user/all");
     }
 }
 
