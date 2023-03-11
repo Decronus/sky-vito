@@ -4,10 +4,14 @@ import { StyledContainer } from "../../global-styles";
 import Adv from "../../components/adv";
 import * as S from "./styles";
 import { useLoaderData } from "react-router-dom";
+import { userSelector } from "../../store/selectors/main";
+import { useSelector } from "react-redux";
 
 function Profile() {
     const [userAds, user] = useLoaderData();
     const [phoneVisibility, setPhoneVisibility] = useState(false);
+
+    const currentUser = useSelector(userSelector);
 
     const isMyProfile = false;
 

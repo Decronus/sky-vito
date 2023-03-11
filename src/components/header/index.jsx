@@ -11,8 +11,8 @@ function Header({ isAuth }) {
         <S.Header>
             <StyledContainer>
                 <S.HeaderInner>
-                    {isAuth ? (
-                        <Link to="/profile/1">
+                    {!isAuth ? (
+                        <Link to="/login">
                             <HeaderButton>Вход в личный кабинет</HeaderButton>
                         </Link>
                     ) : (

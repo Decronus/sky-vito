@@ -19,13 +19,19 @@ export const AuthBlock = styled.div`
 export const AuthForm = styled.form`
     display: flex;
     flex-direction: column;
-    row-gap: 28px;
+    row-gap: 20px;
 `;
 
 export const AuthFormInput = styled.input`
+    outline: none;
     border: none;
     border-bottom: 1px solid #d9d9d9;
-    padding-bottom: 8px;
+    padding: 4px 0;
+    &:placeholder {
+        font-size: 18px;
+    }
+    font-size: 18px;
+    border-radius: 0;
 `;
 
 export const SignUpLink = styled(Link)`

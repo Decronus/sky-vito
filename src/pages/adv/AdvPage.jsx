@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyledContainer } from "../../global-styles";
 import * as S from "./styles";
 import testImg from "../../assets/static/test.jpg";
 import AdvReviews from "../../components/adv-reviews";
 import MainButton from "../../components/main-button";
 import EditAdvForm from "../../components/edit-adv-form";
-import { useParams, useLoaderData } from "react-router-dom";
-import Queries from "../../services/queries.service";
+import { useLoaderData } from "react-router-dom";
 
 function AdvPage() {
     const isUserAdv = true;
-    const params = useParams();
+    const adv = useLoaderData();
 
-    const [adv, setAdv] = useState({ images: [] });
     const [activeImg, setActiveImg] = useState(0);
     const [visibleReviews, setVisibleReviews] = useState(false);
     const [visibleEditAdvForm, setVisibleEditAdvForm] = useState(false);
-
-    useEffect(() => {
-        Queries.getAdvById(params.id).then((adv) => {
-            console.log("data", adv.data);
-            setAdv(adv.data);
-        });
-    }, []);
 
     return (
         <S.Main>

@@ -12,6 +12,10 @@ class Queries {
     getAllUsers() {
         return axiosInstance.get("user/all");
     }
+
+    postRegUser(body) {
+        return axiosInstance.post("auth/register", body);
+    }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
