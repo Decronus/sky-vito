@@ -5,9 +5,12 @@ import MainButton from "../../components/main-button";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";
+import { logIn } from "../../store/actions/creators/main";
+import { useDispatch } from "react-redux";
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -22,7 +25,6 @@ function Login() {
 
             Queries.postLogin(body)
                 .then((response) => {
-                    console.log(response.data);
                     localStorage.setItem(
                         ACCESS_TOKEN,
                         response.data.access_token
@@ -31,6 +33,10 @@ function Login() {
                         REFRESH_TOKEN,
                         response.data.refresh_token
                     );
+
+                    Queries.getCurrentUser().then((user) => {
+                        dispatch(logIn(user.data));
+                    });
                 })
                 .then(() => navigate("/"));
         }

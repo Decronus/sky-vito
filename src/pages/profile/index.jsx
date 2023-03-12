@@ -14,12 +14,10 @@ function Profile() {
     const params = useParams();
     const currentUser = useSelector(userSelector);
 
-    const isMyProfile = false;
-
     return (
         <S.Main>
             <StyledContainer>
-                {currentUser?.id === Number(params.id) ? (
+                {currentUser && currentUser?.id === Number(params.id) ? (
                     <>
                         <h1>
                             Здравствуйте, {user.name ? user.name : user.email}

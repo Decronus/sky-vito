@@ -1,56 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./styles";
 import HeaderButton from "./header-button";
 import { StyledContainer } from "../../global-styles";
 import CreateAdvForm from "../create-adv-form";
-import Queries from "../../services/queries.service";
-import { ACCESS_TOKEN } from "../../utils/consts";
-import { REFRESH_TOKEN } from "../../utils/consts";
-import { useDispatch, useSelector } from "react-redux";
-import { logIn } from "../../store/actions/creators/main";
+import { useSelector, useDispatch } from "react-redux";
 import { userSelector } from "../../store/selectors/main";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";
+import { logOut } from "../../store/actions/creators/main";
 
 function Header() {
-    const dispatch = useDispatch();
     const currentUser = useSelector(userSelector);
-    console.log("currentUser", currentUser);
-
-    function checkCurrentUser() {
-        Queries.getCurrentUser()
-            .then((user) => {
-                dispatch(logIn(user.data));
-            })
-            .catch((error) => {
-                const body = {
-                    access_token: localStorage.getItem(ACCESS_TOKEN),
-                    refresh_token: localStorage.getItem(REFRESH_TOKEN),
-                };
-
-                Queries.postUpdateTokens(body)
-                    .then((response) => {
-                        localStorage.setItem(
-                            ACCESS_TOKEN,
-                            response.data.access_token
-                        );
-                        localStorage.setItem(
-                            REFRESH_TOKEN,
-                            response.data.refresh_token
-                        );
-                    })
-                    .then(() =>
-                        Queries.getCurrentUser().then((user) =>
-                            dispatch(logIn(user.data))
-                        )
-                    );
-            });
-    }
-
-    useEffect(() => {
-        checkCurrentUser();
-    }, []);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [visibleAddAdv, setVisibleAddAdv] = useState();
+
+    function exitAccount() {
+        localStorage.setItem(ACCESS_TOKEN, "");
+        localStorage.setItem(REFRESH_TOKEN, "");
+        dispatch(logOut());
+        // navigate("/");
+    }
+
     return (
         <S.Header>
             <StyledContainer>
@@ -69,6 +41,10 @@ function Header() {
                             <Link to={`/profile/${currentUser?.id}`}>
                                 <HeaderButton>Личный кабинет</HeaderButton>
                             </Link>
+
+                            <HeaderButton onClick={exitAccount}>
+                                Выйти из аккаунта
+                            </HeaderButton>
                         </S.HeaderAuthButtons>
                     )}
                 </S.HeaderInner>

@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../store/selectors/main";
 
-export default function ProtectedRoute({ redirectPath = "/", token }) {
-    if (!token) {
-        return <Navigate to={redirectPath} replace />;
-    }
+export default function ProtectedRoute({ redirectPath = "/" }) {
+    const currentUser = useSelector(userSelector);
 
-    return <Outlet />;
+    return currentUser ? <Outlet /> : <Navigate to={`${redirectPath}`} />;
 }

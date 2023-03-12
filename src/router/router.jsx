@@ -4,7 +4,7 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
 } from "react-router-dom";
-// import ProtectedRoute from "./components/protected-route";
+import ProtectedRoute from "../components/protected-route";
 import Home from "../pages/home";
 import NotFound from "../pages/not-found";
 import {
@@ -23,7 +23,11 @@ import Registration from "../pages/auth/Registration";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<RootLayout />}>
+        <Route
+            path="/"
+            element={<RootLayout />}
+            loader={LoaderFunctions.getAllAds}
+        >
             <Route
                 index
                 path={HOME_ROUTE}
@@ -48,13 +52,10 @@ const router = createBrowserRouter(
                 loader={({ params }) => LoaderFunctions.getAdvById(params.id)}
             />
 
-            {/* <Route
-                element={
-                    <ProtectedRoute>
-                        <Route path={PROFILE_ROUTE} element={<Profile />} />
-                    </ProtectedRoute>
-                }
-            /> */}
+            <Route element={<ProtectedRoute />}>
+                <Route path={`${PROFILE_ROUTE}/:id`} element={<Profile />} />
+            </Route>
+
             <Route path="*" element={<NotFound />} />
         </Route>
     )
