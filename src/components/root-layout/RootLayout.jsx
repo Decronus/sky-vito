@@ -7,6 +7,7 @@ import Queries from "../../services/queries.service";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../store/actions/creators/main";
+import { ScrollRestoration } from "react-router-dom";
 
 function RootLayout() {
     const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function RootLayout() {
             <Header />
             <Search />
             <Outlet />
+            <ScrollRestoration />
         </div>
     );
 }

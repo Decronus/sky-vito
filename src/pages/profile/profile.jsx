@@ -23,25 +23,28 @@ function Profile() {
                         {phoneVisibility ? (
                             <S.PhoneButton>
                                 <span>
-                                    `${user?.phone.slice(0, 1)} ${user?.phone.slice(1, 4)} ${user?.phone.slice(4)}`
+                                    {`${user?.phone.slice(0, 1)} ${user?.phone.slice(1, 4)} ${user?.phone.slice(4)}`}
                                 </span>
                             </S.PhoneButton>
                         ) : (
                             <S.PhoneButton onClick={() => setPhoneVisibility(true)}>
                                 Показать телефон
-                                <span>
-                                    `${user?.phone.slice(0, 1)} ${user?.phone.slice(1, 4)} ХХХ ХХ ХХ`
-                                </span>
+                                <span>{`${user?.phone.slice(0, 1)} ${user?.phone.slice(1, 4)} ХХХ ХХ ХХ`}</span>
                             </S.PhoneButton>
                         )}
                     </div>
                 </S.SellerInfoBlock>
-                <h2>Товары продавца</h2>
-                <S.AdvList>
-                    {userAds.map((adv) => (
-                        <Adv key={adv.id} adv={adv} />
-                    ))}
-                </S.AdvList>
+
+                {userAds.length > 0 && (
+                    <>
+                        <h2>Товары продавца</h2>
+                        <S.AdvList>
+                            {userAds.map((adv) => (
+                                <Adv key={adv.id} adv={adv} />
+                            ))}
+                        </S.AdvList>
+                    </>
+                )}
             </StyledContainer>
         </S.Main>
     );

@@ -27,6 +27,8 @@ class LoaderFunctions {
             return el.id === Number(id);
         });
 
+        if (!user) throw new Error("User is not exists");
+
         return user;
     }
 

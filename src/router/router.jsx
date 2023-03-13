@@ -16,22 +16,30 @@ import Account from "../pages/profile/account";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />} loader={LoaderFunctions.getAllAds}>
-            <Route index path={HOME_ROUTE} element={<Home />} loader={LoaderFunctions.getAllAds} />
+            <Route
+                index
+                path={HOME_ROUTE}
+                element={<Home />}
+                loader={LoaderFunctions.getAllAds}
+                errorElement={<NotFound />}
+            />
 
             <Route
                 path={`${PROFILE_ROUTE}/:id`}
                 element={<Profile />}
                 loader={({ params }) => LoaderFunctions.getUserAndUserAds(params.id)}
+                errorElement={<NotFound />}
             />
             <Route
                 path={`${ADV_ROUTE}/:id`}
                 element={<AdvPage />}
                 loader={({ params }) => LoaderFunctions.getAdvById(params.id)}
+                errorElement={<NotFound />}
             />
 
             <Route element={<ProtectedRouteIsLogin />}>
-                <Route path={REGISTRATION_ROUTE} element={<Registration />} />
-                <Route path={LOGIN_ROUTE} element={<Login />} />
+                <Route path={REGISTRATION_ROUTE} element={<Registration />} errorElement={<NotFound />} />
+                <Route path={LOGIN_ROUTE} element={<Login />} errorElement={<NotFound />} />
             </Route>
 
             <Route element={<ProtectedRoute redirectPath={LOGIN_ROUTE} />}>
@@ -39,6 +47,7 @@ const router = createBrowserRouter(
                     path={ACCOUNT}
                     element={<Account />}
                     loader={({ params }) => LoaderFunctions.getUserAds(params.id)}
+                    errorElement={<NotFound />}
                 />
             </Route>
 
