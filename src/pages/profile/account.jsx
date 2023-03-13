@@ -15,10 +15,7 @@ function Account() {
     return (
         <S.Main>
             <StyledContainer>
-                <h1>
-                    Здравствуйте,{" "}
-                    {currentUser?.name ? currentUser?.name : currentUser?.email}
-                </h1>
+                <h1>Здравствуйте, {currentUser?.name ? currentUser?.name : currentUser?.email}</h1>
                 <h2>Настройки профиля</h2>
                 <ProfileDataForm />
 

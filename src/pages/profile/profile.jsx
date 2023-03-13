@@ -23,25 +23,14 @@ function Profile() {
                         {phoneVisibility ? (
                             <S.PhoneButton>
                                 <span>
-                                    {`${user?.phone.slice(
-                                        0,
-                                        1
-                                    )} ${user?.phone.slice(
-                                        1,
-                                        4
-                                    )} ${user?.phone.slice(4)}`}
+                                    `${user?.phone.slice(0, 1)} ${user?.phone.slice(1, 4)} ${user?.phone.slice(4)}`
                                 </span>
                             </S.PhoneButton>
                         ) : (
-                            <S.PhoneButton
-                                onClick={() => setPhoneVisibility(true)}
-                            >
+                            <S.PhoneButton onClick={() => setPhoneVisibility(true)}>
                                 Показать телефон
                                 <span>
-                                    {`${user?.phone.slice(
-                                        0,
-                                        1
-                                    )} ${user?.phone.slice(1, 4)} ХХХ ХХ ХХ`}
+                                    `${user?.phone.slice(0, 1)} ${user?.phone.slice(1, 4)} ХХХ ХХ ХХ`
                                 </span>
                             </S.PhoneButton>
                         )}

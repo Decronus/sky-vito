@@ -57,9 +57,7 @@ function Registration() {
                         placeholder="Повторите пароль"
                         type="password"
                         value={repeatPassword}
-                        onChange={(event) =>
-                            setRepeatPassword(event.target.value)
-                        }
+                        onChange={(event) => setRepeatPassword(event.target.value)}
                     />
                     <S.AuthFormInput
                         placeholder="Имя (необязательно)"

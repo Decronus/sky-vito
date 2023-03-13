@@ -27,9 +27,7 @@ function Search() {
                             <S.SearchInput
                                 placeholder="Поиск по объявлениям"
                                 value={searchQuery}
-                                onChange={(event) =>
-                                    dispatch(search(event.target.value))
-                                }
+                                onChange={(event) => dispatch(search(event.target.value))}
                             />
                             <MainButton>Найти</MainButton>
                         </S.SearchBlock>

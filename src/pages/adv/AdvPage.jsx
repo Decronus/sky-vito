@@ -20,10 +20,7 @@ function AdvPage() {
             <StyledContainer>
                 <S.AdvInfo>
                     <S.AdvImagesBlock>
-                        <S.CurrentAdvImage
-                            url={adv.images[0]?.url}
-                            alt="Изображение"
-                        />
+                        <S.CurrentAdvImage url={adv.images[0]?.url} alt="Изображение" />
                         <S.AdvImagesList>
                             {adv?.images?.map((image, index) => (
                                 <S.AdvImage
@@ -37,25 +34,16 @@ function AdvPage() {
                     </S.AdvImagesBlock>
                     <div>
                         <S.AdvTitle>{adv.title}</S.AdvTitle>
-                        <S.AdvDataRelease>
-                            {new Date(adv.created_on).toLocaleDateString()}
-                        </S.AdvDataRelease>
+                        <S.AdvDataRelease>{new Date(adv.created_on).toLocaleDateString()}</S.AdvDataRelease>
                         <S.AdvLocation>{adv?.user?.city}</S.AdvLocation>
-                        <S.AdvReviews onClick={() => setVisibleReviews(true)}>
-                            23 отзыва
-                        </S.AdvReviews>
+                        <S.AdvReviews onClick={() => setVisibleReviews(true)}>23 отзыва</S.AdvReviews>
                         <S.AdvPrice>{adv.price}</S.AdvPrice>
                         {isUserAdv ? (
                             <S.AdvSettingsButtons>
-                                <MainButton
-                                    type="button"
-                                    onClick={() => setVisibleEditAdvForm(true)}
-                                >
+                                <MainButton type="button" onClick={() => setVisibleEditAdvForm(true)}>
                                     Редактировать
                                 </MainButton>
-                                <MainButton type="button">
-                                    Снять с публикации
-                                </MainButton>
+                                <MainButton type="button">Снять с публикации</MainButton>
                             </S.AdvSettingsButtons>
                         ) : (
                             <S.PhoneButton>
@@ -67,12 +55,8 @@ function AdvPage() {
                         <S.SellerInfo>
                             <S.SellerAvatar src={testImg} alt="seller avatar" />
                             <div>
-                                <S.SellerName to={`/profile/${adv?.user?.id}`}>
-                                    {adv?.user?.name}
-                                </S.SellerName>
-                                <S.SellerActivity>
-                                    Продает товары с октября 2003
-                                </S.SellerActivity>
+                                <S.SellerName to={`/profile/${adv?.user?.id}`}>{adv?.user?.name}</S.SellerName>
+                                <S.SellerActivity>Продает товары с октября 2003</S.SellerActivity>
                             </div>
                         </S.SellerInfo>
                     </div>
@@ -82,16 +66,9 @@ function AdvPage() {
                     <S.AdvDescription>{adv.description}</S.AdvDescription>
                 </div>
             </StyledContainer>
-            {visibleReviews && (
-                <AdvReviews closeForm={() => setVisibleReviews(false)} />
-            )}
+            {visibleReviews && <AdvReviews closeForm={() => setVisibleReviews(false)} />}
 
-            {visibleEditAdvForm && (
-                <EditAdvForm
-                    adv={adv}
-                    closeForm={() => setVisibleEditAdvForm(false)}
-                />
-            )}
+            {visibleEditAdvForm && <EditAdvForm adv={adv} closeForm={() => setVisibleEditAdvForm(false)} />}
         </S.Main>
     );
 }

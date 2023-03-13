@@ -25,14 +25,8 @@ function Login() {
 
             Queries.postLogin(body)
                 .then((response) => {
-                    localStorage.setItem(
-                        ACCESS_TOKEN,
-                        response.data.access_token
-                    );
-                    localStorage.setItem(
-                        REFRESH_TOKEN,
-                        response.data.refresh_token
-                    );
+                    localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
+                    localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
 
                     Queries.getCurrentUser().then((user) => {
                         dispatch(logIn(user.data));
@@ -64,9 +58,7 @@ function Login() {
                     <MainButton type="submit" onClick={login}>
                         Войти
                     </MainButton>
-                    <S.SignUpLink to="/registration">
-                        Зарегистрироваться
-                    </S.SignUpLink>
+                    <S.SignUpLink to="/registration">Зарегистрироваться</S.SignUpLink>
                 </S.AuthForm>
             </S.AuthBlock>
         </S.Auth>

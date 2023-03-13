@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as S from "./styles";
 import HeaderButton from "./header-button";
 import { StyledContainer } from "../../global-styles";
@@ -12,7 +12,6 @@ import { logOut } from "../../store/actions/creators/main";
 function Header() {
     const currentUser = useSelector(userSelector);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [visibleAddAdv, setVisibleAddAdv] = useState();
 
@@ -20,7 +19,6 @@ function Header() {
         localStorage.setItem(ACCESS_TOKEN, "");
         localStorage.setItem(REFRESH_TOKEN, "");
         dispatch(logOut());
-        // navigate("/");
     }
 
     return (
@@ -33,26 +31,18 @@ function Header() {
                         </Link>
                     ) : (
                         <S.HeaderAuthButtons>
-                            <HeaderButton
-                                onClick={() => setVisibleAddAdv(true)}
-                            >
-                                Разместить объявление
-                            </HeaderButton>
+                            <HeaderButton onClick={() => setVisibleAddAdv(true)}>Разместить объявление</HeaderButton>
                             <Link to={`/account`}>
                                 <HeaderButton>Личный кабинет</HeaderButton>
                             </Link>
 
-                            <HeaderButton onClick={exitAccount}>
-                                Выйти из аккаунта
-                            </HeaderButton>
+                            <HeaderButton onClick={exitAccount}>Выйти из аккаунта</HeaderButton>
                         </S.HeaderAuthButtons>
                     )}
                 </S.HeaderInner>
             </StyledContainer>
 
-            {visibleAddAdv && (
-                <CreateAdvForm closeForm={() => setVisibleAddAdv(false)} />
-            )}
+            {visibleAddAdv && <CreateAdvForm closeForm={() => setVisibleAddAdv(false)} />}
         </S.Header>
     );
 }

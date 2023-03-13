@@ -4,7 +4,7 @@ import Header from "../../components/header";
 import Search from "../../components/search";
 import { Outlet } from "react-router-dom";
 import Queries from "../../services/queries.service";
-import { ACCESS_TOKEN, REFRESH_TOKEN  } from "../../utils/consts";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../store/actions/creators/main";
 
@@ -25,20 +25,10 @@ function RootLayout() {
 
                     Queries.postUpdateTokens(body)
                         .then((response) => {
-                            localStorage.setItem(
-                                ACCESS_TOKEN,
-                                response.data.access_token
-                            );
-                            localStorage.setItem(
-                                REFRESH_TOKEN,
-                                response.data.refresh_token
-                            );
+                            localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
+                            localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
                         })
-                        .then(() =>
-                            Queries.getCurrentUser().then((user) =>
-                                dispatch(logIn(user.data))
-                            )
-                        );
+                        .then(() => Queries.getCurrentUser().then((user) => dispatch(logIn(user.data))));
                 }
             });
     }

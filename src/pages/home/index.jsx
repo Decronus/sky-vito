@@ -9,7 +9,6 @@ import { searchSelector } from "../../store/selectors/main";
 function Home() {
     const adsList = useLoaderData();
     const searchQuery = useSelector(searchSelector);
-    console.log(adsList);
 
     function searchFilter(searchQuery, adv) {
         const advValues = Object.values(adv).slice(0, 2).join(" ");
@@ -23,9 +22,9 @@ function Home() {
                 <S.AdvList>
                     {adsList
                         .filter((adv) => searchFilter(searchQuery, adv))
-                        .map((adv) => {
-                            return <Adv key={adv.id} adv={adv} />;
-                        })}
+                        .map((adv) => (
+                            <Adv key={adv.id} adv={adv} />
+                        ))}
                 </S.AdvList>
             </StyledContainer>
         </S.Main>
