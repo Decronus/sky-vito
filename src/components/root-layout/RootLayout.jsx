@@ -16,6 +16,7 @@ function RootLayout() {
         Queries.getCurrentUser()
             .then((user) => {
                 dispatch(logIn(user.data));
+                localStorage.setItem("user", JSON.stringify(user.data));
             })
             .catch((error) => {
                 if (error.response.status === 401) {
@@ -29,7 +30,12 @@ function RootLayout() {
                             localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
                             localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
                         })
-                        .then(() => Queries.getCurrentUser().then((user) => dispatch(logIn(user.data))));
+                        .then(() =>
+                            Queries.getCurrentUser().then((user) => {
+                                dispatch(logIn(user.data));
+                                localStorage.setItem("user", JSON.stringify(user.data));
+                            })
+                        );
                 }
             });
     }

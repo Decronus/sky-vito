@@ -18,6 +18,7 @@ function Header() {
     function exitAccount() {
         localStorage.setItem(ACCESS_TOKEN, "");
         localStorage.setItem(REFRESH_TOKEN, "");
+        localStorage.setItem("user", "");
         dispatch(logOut());
     }
 

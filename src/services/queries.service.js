@@ -6,6 +6,10 @@ class Queries {
         return axiosInstance.get("user", { headers: auth() });
     }
 
+    patchCurrentUser(body) {
+        return axiosInstance.patch("user", body, { headers: auth() });
+    }
+
     getAllAds() {
         return axiosInstance.get("ads");
     }
@@ -28,6 +32,10 @@ class Queries {
 
     postUpdateTokens(body) {
         return axiosInstance.put("auth/login", body);
+    }
+
+    postUploadAvatar(body) {
+        return axiosInstance.post("user/avatar", body, { headers: auth() });
     }
 }
 

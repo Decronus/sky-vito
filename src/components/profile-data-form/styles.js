@@ -17,6 +17,9 @@ export const Avatar = styled.img`
     height: 170px;
     border-radius: 50%;
     margin-bottom: 10px;
+    background: ${({ url }) => (url ? `url(${url})` : "#F0F0F0")};
+    background-size: cover;
+    background-position: center;
 `;
 
 export const ChangeAvatarBtn = styled.button`
@@ -49,7 +52,6 @@ export const DataFormInput = styled.input`
     border: 1px solid #c4c4c4;
     display: inline-block;
     padding: 13px 19px;
-    cursor: pointer;
     border-radius: 6px;
 
     :focus,
