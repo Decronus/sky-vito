@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT } from "../types/main";
+import { LOG_IN, LOG_OUT, SEARCH } from "../types/main";
 
 export const logIn = (user) => ({
     type: LOG_IN,
@@ -7,4 +7,9 @@ export const logIn = (user) => ({
 
 export const logOut = () => ({
     type: LOG_OUT,
+});
+
+export const search = (str) => ({
+    type: SEARCH,
+    payload: str,
 });

@@ -13,13 +13,15 @@ import {
     PROFILE_ROUTE,
     REGISTRATION_ROUTE,
     ADV_ROUTE,
+    ACCOUNT,
 } from "../utils/consts";
 import Login from "../pages/auth/Login";
-import Profile from "../pages/profile";
+import Profile from "../pages/profile/profile";
 import AdvPage from "../pages/adv/AdvPage";
 import RootLayout from "../components/root-layout/RootLayout";
 import LoaderFunctions from "./loader.functions";
 import Registration from "../pages/auth/Registration";
+import Account from "../pages/profile/account";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -54,6 +56,13 @@ const router = createBrowserRouter(
 
             <Route element={<ProtectedRoute />}>
                 <Route path={`${PROFILE_ROUTE}/:id`} element={<Profile />} />
+                <Route
+                    path={ACCOUNT}
+                    element={<Account />}
+                    loader={({ params }) =>
+                        LoaderFunctions.getUserAds(params.id)
+                    }
+                />
             </Route>
 
             <Route path="*" element={<NotFound />} />

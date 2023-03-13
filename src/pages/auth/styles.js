@@ -32,6 +32,8 @@ export const AuthFormInput = styled.input`
     }
     font-size: 18px;
     border-radius: 0;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0),
+        inset 0 0 0 100px rgba(255, 255, 255, 1);
 `;
 
 export const SignUpLink = styled(Link)`

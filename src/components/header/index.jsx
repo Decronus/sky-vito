@@ -38,7 +38,7 @@ function Header() {
                             >
                                 Разместить объявление
                             </HeaderButton>
-                            <Link to={`/profile/${currentUser?.id}`}>
+                            <Link to={`/account`}>
                                 <HeaderButton>Личный кабинет</HeaderButton>
                             </Link>
 

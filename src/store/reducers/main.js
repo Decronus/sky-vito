@@ -1,7 +1,8 @@
-import { LOG_IN, LOG_OUT } from "../actions/types/main";
+import { LOG_IN, LOG_OUT, SEARCH } from "../actions/types/main";
 
 const initialState = {
     user: null,
+    searchQuery: "",
 };
 
 export default function mainReducer(state = initialState, action) {
@@ -17,6 +18,13 @@ export default function mainReducer(state = initialState, action) {
             return {
                 ...state,
                 user: null,
+            };
+        }
+
+        case SEARCH: {
+            return {
+                ...state,
+                searchQuery: action.payload,
             };
         }
 

@@ -8,6 +8,8 @@ export const Button = styled.button`
     border-radius: 6px;
     transition: background-color 0.2s ease-in;
     cursor: pointer;
+    font-size: 16px;
+
 
     :hover {
         background: rgba(255, 255, 255, 0.15);

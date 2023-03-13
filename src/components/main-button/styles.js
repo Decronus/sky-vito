@@ -8,6 +8,7 @@ export const Button = styled.button`
     border: none;
     color: white;
     transition: background-color 0.2s ease-in;
+    font-size: 16px;
 
     :hover {
         background-color: #0080c1;

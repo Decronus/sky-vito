@@ -3,6 +3,7 @@ export const LOGIN_ROUTE = "login";
 export const HOME_ROUTE = "/";
 export const PROFILE_ROUTE = "profile";
 export const ADV_ROUTE = "adv";
+export const ACCOUNT = "account";
 
 const size = {
     tablet: "768px",
