@@ -30,6 +30,7 @@ function Login() {
 
                     Queries.getCurrentUser().then((user) => {
                         dispatch(logIn(user.data));
+                        localStorage.setItem("user", JSON.stringify(user.data));
                     });
                 })
                 .then(() => navigate("/"));

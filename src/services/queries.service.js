@@ -35,7 +35,9 @@ class Queries {
     }
 
     postUploadAvatar(body) {
-        return axiosInstance.post("user/avatar", body, { headers: auth() });
+        return axiosInstance.post("user/avatar", body, {
+            headers: Object.assign(auth(), { "Content-type": "multipart/form-data" }),
+        });
     }
 }
 

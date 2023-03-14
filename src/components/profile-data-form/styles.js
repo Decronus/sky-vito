@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { API_URL } from "../../utils/consts";
 
 export const DataForm = styled.form`
     display: flex;
@@ -17,7 +18,8 @@ export const Avatar = styled.img`
     height: 170px;
     border-radius: 50%;
     margin-bottom: 10px;
-    background: ${({ url }) => (url ? `url(${url})` : "#F0F0F0")};
+    background: ${({ url }) => (url ? `url(${API_URL + url})` : "#F0F0F0")};
+    // background: ${({ url }) => (url ? `url(${url})` : "#F0F0F0")};
     background-size: cover;
     background-position: center;
 `;
