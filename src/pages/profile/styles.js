@@ -16,6 +16,23 @@ export const SellerInfoBlock = styled.div`
     column-gap: 50px;
 `;
 
+export const SellerInfoTextAndPhone = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+`;
+
+export const SellerInfoText = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 16px;
+    p:first-child {
+        font-size: 20px;
+        font-family: "Roboto-medium";
+    }
+`;
+
 export const SellerAvatar = styled.div`
     width: 170px;
     height: 170px;
@@ -25,26 +42,6 @@ export const SellerAvatar = styled.div`
     background-position: center;
 `;
 
-// export const SellerName = styled.p`
-//   display: flex;
-//   column-gap: 50px;
-// `;
-
-export const PhoneButton = styled.button`
-    display: flex;
-    flex-direction: column;
-    row-gap: 2px;
-    align-items: center;
-    margin-top: 34px;
-    background-color: #009ee4;
-    padding: 13px 37px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    transition: background-color 0.2s ease-in;
-
-    :hover {
-        background-color: #0080c1;
-    }
+export const SellerGoods = styled.div`
+    margin-top: 44px;
 `;

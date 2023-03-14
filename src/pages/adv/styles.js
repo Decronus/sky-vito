@@ -73,25 +73,6 @@ export const AdvSettingsButtons = styled.div`
     margin-bottom: 34px;
 `;
 
-export const PhoneButton = styled.button`
-    display: flex;
-    flex-direction: column;
-    row-gap: 2px;
-    align-items: center;
-    margin-bottom: 34px;
-    background-color: #009ee4;
-    padding: 13px 37px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    transition: background-color 0.2s ease-in;
-
-    :hover {
-        background-color: #0080c1;
-    }
-`;
-
 export const SellerInfo = styled.div`
     display: flex;
     column-gap: 12px;

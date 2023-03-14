@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { StyledContainer } from "../../global-styles";
 import * as S from "./styles";
 import testImg from "../../assets/static/test.jpg";
@@ -6,10 +6,15 @@ import AdvReviews from "../../components/adv-reviews";
 import MainButton from "../../components/main-button";
 import EditAdvForm from "../../components/edit-adv-form";
 import { useLoaderData } from "react-router-dom";
+import { userSelector } from "../../store/selectors/main";
+import { useSelector } from "react-redux";
+import PhoneButton from "../../components/phone-button/PhoneButton";
 
 function AdvPage() {
-    const isUserAdv = true;
     const adv = useLoaderData();
+    const currentUser = useSelector(userSelector);
+    console.log("adv", adv);
+    console.log("curr", currentUser);
 
     const [activeImg, setActiveImg] = useState(0);
     const [visibleReviews, setVisibleReviews] = useState(false);
@@ -37,20 +42,20 @@ function AdvPage() {
                         <S.AdvDataRelease>{new Date(adv.created_on).toLocaleDateString()}</S.AdvDataRelease>
                         <S.AdvLocation>{adv?.user?.city}</S.AdvLocation>
                         <S.AdvReviews onClick={() => setVisibleReviews(true)}>23 отзыва</S.AdvReviews>
-                        <S.AdvPrice>{adv.price}</S.AdvPrice>
-                        {isUserAdv ? (
-                            <S.AdvSettingsButtons>
-                                <MainButton type="button" onClick={() => setVisibleEditAdvForm(true)}>
-                                    Редактировать
-                                </MainButton>
-                                <MainButton type="button">Снять с публикации</MainButton>
-                            </S.AdvSettingsButtons>
-                        ) : (
-                            <S.PhoneButton>
-                                Показать телефон
-                                <span>8 905 ХХХ ХХ ХХ</span>
-                            </S.PhoneButton>
-                        )}
+                        <S.AdvPrice>{`${adv.price} ₽`}</S.AdvPrice>
+
+                        <S.AdvSettingsButtons>
+                            {adv.user_id === currentUser?.id ? (
+                                <>
+                                    <MainButton type="button" onClick={() => setVisibleEditAdvForm(true)}>
+                                        Редактировать
+                                    </MainButton>
+                                    <MainButton type="button">Снять с публикации</MainButton>
+                                </>
+                            ) : (
+                                <PhoneButton user={currentUser} />
+                            )}
+                        </S.AdvSettingsButtons>
 
                         <S.SellerInfo>
                             <S.SellerAvatar src={testImg} alt="seller avatar" />

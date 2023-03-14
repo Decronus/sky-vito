@@ -1,4 +1,3 @@
-import React from "react";
 import ProfileDataForm from "../../components/profile-data-form";
 import { StyledContainer } from "../../global-styles";
 import Adv from "../../components/adv";
@@ -20,14 +19,14 @@ function Account() {
                 <ProfileDataForm currentUser={currentUser} />
 
                 {userAds.length > 0 && (
-                    <>
+                    <S.SellerGoods>
                         <h2>Мои товары</h2>
                         <S.AdvList>
                             {userAds.map((adv) => (
                                 <Adv key={adv.id} adv={adv} />
                             ))}
                         </S.AdvList>
-                    </>
+                    </S.SellerGoods>
                 )}
             </StyledContainer>
         </S.Main>
