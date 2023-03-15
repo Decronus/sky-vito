@@ -52,7 +52,7 @@ function ProfileDataForm() {
                 localStorage.setItem("user", JSON.stringify(user.data));
                 setAvatar(user.data.avatar);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => alert(error));
     };
 
     useEffect(() => {

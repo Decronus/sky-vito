@@ -6,7 +6,7 @@ import CloseFormButton from "../close-form-button";
 import { userSelector } from "../../store/selectors/main";
 import { useSelector } from "react-redux";
 
-function AdvReviews({ closeForm }) {
+function AdvReviews({ closeForm, comments }) {
     const currentUser = useSelector(userSelector);
 
     return (
@@ -21,10 +21,7 @@ function AdvReviews({ closeForm }) {
                         <>
                             <S.Subtitle>Добавить отзыв</S.Subtitle>
                             <S.ReviewSendForm>
-                                <S.ReviewSendFormInput
-                                    type="text"
-                                    placeholder="Введите отзыв"
-                                />
+                                <S.ReviewSendFormInput type="text" placeholder="Введите отзыв" />
                                 <div>
                                     <MainButton active={false} type="submit">
                                         Опубликовать
@@ -35,29 +32,19 @@ function AdvReviews({ closeForm }) {
                     )}
 
                     <S.ReviewsList>
-                        {Array.from({ length: 5 }, (_v, k) => (
-                            <S.Review key={k}>
-                                <S.ReviewerAvatar
-                                    src={testImg}
-                                    alt="user avatar"
-                                />
+                        {comments.map((el, key) => (
+                            <S.Review key={key}>
+                                <S.ReviewerAvatar url={el?.author.avatar} />
                                 <div>
                                     <S.ReviewerInfo>
-                                        <S.ReviewerName>Олег</S.ReviewerName>
+                                        <S.ReviewerName>{el?.author.name}</S.ReviewerName>
                                         <S.ReviewDateRelease>
-                                            14 августа
+                                            {new Date(el?.created_on).toLocaleDateString()}
                                         </S.ReviewDateRelease>
                                     </S.ReviewerInfo>
                                     <S.ReviewerCommentBlock>
-                                        <S.ReviewerCommentTitle>
-                                            Комментарий
-                                        </S.ReviewerCommentTitle>
-                                        <S.ReviewCommentText>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit, sed do
-                                            eiusmod tempor incididunt ut labore
-                                            et dolore magna aliqua.
-                                        </S.ReviewCommentText>
+                                        <S.ReviewerCommentTitle>Комментарий</S.ReviewerCommentTitle>
+                                        <S.ReviewCommentText>{el?.text}</S.ReviewCommentText>
                                     </S.ReviewerCommentBlock>
                                 </div>
                             </S.Review>

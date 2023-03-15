@@ -38,6 +38,19 @@ class LoaderFunctions {
 
         return [userAds, user];
     }
+
+    async getAdsComments(id) {
+        const comments = await Queries.getAdsComments(id);
+
+        return comments.data;
+    }
+
+    async getAdvAndComments(id) {
+        const adv = await this.getAdvById(id);
+        const comments = await this.getAdsComments(id);
+
+        return [adv, comments];
+    }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

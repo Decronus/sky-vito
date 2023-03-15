@@ -33,7 +33,7 @@ const router = createBrowserRouter(
             <Route
                 path={`${ADV_ROUTE}/:id`}
                 element={<AdvPage />}
-                loader={({ params }) => LoaderFunctions.getAdvById(params.id)}
+                loader={({ params }) => LoaderFunctions.getAdvAndComments(params.id)}
                 errorElement={<NotFound />}
             />
 

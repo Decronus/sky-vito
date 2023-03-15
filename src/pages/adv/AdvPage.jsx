@@ -13,7 +13,7 @@ import Queries from "../../services/queries.service";
 
 function AdvPage() {
     const navigate = useNavigate();
-    const adv = useLoaderData();
+    const [adv, comments] = useLoaderData();
     const currentUser = useSelector(userSelector);
 
     const [activeImg, setActiveImg] = useState(0);
@@ -29,6 +29,27 @@ function AdvPage() {
                 .then(() => navigate("/"));
         }
     };
+
+    const formatCommentEnding = (comments) => {
+        if (comments.length === 0) {
+            return "Нет отзывов";
+        } else if (comments.length === 1) {
+            return `${comments.length} отзыв`;
+        } else if (comments.length >= 2 && comments.length <= 4) {
+            return `${comments.length} отзыва`;
+        } else if (comments.length >= 5 && comments.length <= 20) {
+            return `${comments.length} отзывов`;
+        } else if (comments.length[comments.length - 1] === 1) {
+            return `${comments.length} отзыв`;
+        } else if (comments.length[comments.length - 1] >= 2 && comments.length <= 4) {
+            return `${comments.length} отзыва`;
+        } else {
+            return `${comments.length} отзывов`;
+        }
+    };
+    // formatCommentEnding(comments);
+
+    // console.log(comments);
 
     return (
         <S.Main>
@@ -51,7 +72,9 @@ function AdvPage() {
                         <S.AdvTitle>{adv.title}</S.AdvTitle>
                         <S.AdvDataRelease>{new Date(adv.created_on).toLocaleDateString()}</S.AdvDataRelease>
                         <S.AdvLocation>{adv?.user?.city}</S.AdvLocation>
-                        <S.AdvReviews onClick={() => setVisibleReviews(true)}>23 отзыва</S.AdvReviews>
+                        <S.AdvReviews onClick={() => setVisibleReviews(true)}>
+                            {formatCommentEnding(comments)}
+                        </S.AdvReviews>
                         <S.AdvPrice>{`${adv.price} ₽`}</S.AdvPrice>
 
                         <S.AdvSettingsButtons>
@@ -83,7 +106,7 @@ function AdvPage() {
                     <S.AdvDescription>{adv.description}</S.AdvDescription>
                 </div>
             </StyledContainer>
-            {visibleReviews && <AdvReviews closeForm={() => setVisibleReviews(false)} />}
+            {visibleReviews && <AdvReviews closeForm={() => setVisibleReviews(false)} comments={comments} />}
 
             {visibleEditAdvForm && <EditAdvForm adv={adv} closeForm={() => setVisibleEditAdvForm(false)} />}
         </S.Main>

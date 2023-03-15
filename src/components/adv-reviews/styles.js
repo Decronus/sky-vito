@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { API_URL } from "../../utils/consts";
 
 export const ReviewsBack = styled.div`
     position: fixed;
@@ -68,6 +69,9 @@ export const ReviewerAvatar = styled.img`
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    background: ${({ url }) => (url ? `url(${API_URL + url})` : "#DDDDDD")};
+    background-size: cover;
+    background-position: center;
 `;
 
 export const ReviewerInfo = styled.div`
