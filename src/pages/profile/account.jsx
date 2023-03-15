@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 function Account() {
     const userAds = useLoaderData();
+    console.log("ads", userAds);
 
     const currentUser = useSelector(userSelector);
 

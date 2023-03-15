@@ -10,7 +10,6 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.defaults.headers.post["Content-Type"] = "application/json";
-// axiosInstance.defaults.headers.post["Content-Type"] = "multipart/form-data";
 axiosInstance.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 axiosInstance.defaults.headers.post["Access-Control-Allow-Methods"] = "GET,PUT,POST,DELETE,PATCH,OPTIONS";
 axiosInstance.defaults.headers.post["Access-Control-Allow-Credentials"] = true;

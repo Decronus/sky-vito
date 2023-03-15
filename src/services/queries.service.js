@@ -39,6 +39,14 @@ class Queries {
             headers: Object.assign(auth(), { "Content-type": "multipart/form-data" }),
         });
     }
+
+    postCreateAdv(body) {
+        return axiosInstance.post("adstext", body, { headers: auth() });
+    }
+
+    deleteAdv(id) {
+        return axiosInstance.delete(`ads/${id}`, { headers: auth() });
+    }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

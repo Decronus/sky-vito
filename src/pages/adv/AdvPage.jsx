@@ -5,12 +5,14 @@ import testImg from "../../assets/static/test.jpg";
 import AdvReviews from "../../components/adv-reviews";
 import MainButton from "../../components/main-button";
 import EditAdvForm from "../../components/edit-adv-form";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { userSelector } from "../../store/selectors/main";
 import { useSelector } from "react-redux";
 import PhoneButton from "../../components/phone-button/PhoneButton";
+import Queries from "../../services/queries.service";
 
 function AdvPage() {
+    const navigate = useNavigate();
     const adv = useLoaderData();
     const currentUser = useSelector(userSelector);
     console.log("adv", adv);
@@ -19,6 +21,16 @@ function AdvPage() {
     const [activeImg, setActiveImg] = useState(0);
     const [visibleReviews, setVisibleReviews] = useState(false);
     const [visibleEditAdvForm, setVisibleEditAdvForm] = useState(false);
+
+    const deleteAdv = () => {
+        // eslint-disable-next-line no-restricted-globals
+        const accept = confirm("Вы уверены, что хотите снять объявление с публикации?");
+        if (accept) {
+            Queries.deleteAdv(adv.id)
+                .then((response) => console.log(response))
+                .then(() => navigate("/"));
+        }
+    };
 
     return (
         <S.Main>
@@ -50,7 +62,9 @@ function AdvPage() {
                                     <MainButton type="button" onClick={() => setVisibleEditAdvForm(true)}>
                                         Редактировать
                                     </MainButton>
-                                    <MainButton type="button">Снять с публикации</MainButton>
+                                    <MainButton type="button" onClick={deleteAdv}>
+                                        Снять с публикации
+                                    </MainButton>
                                 </>
                             ) : (
                                 <PhoneButton user={currentUser} />

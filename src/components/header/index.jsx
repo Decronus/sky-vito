@@ -33,7 +33,7 @@ function Header() {
                     ) : (
                         <S.HeaderAuthButtons>
                             <HeaderButton onClick={() => setVisibleAddAdv(true)}>Разместить объявление</HeaderButton>
-                            <Link to={`/account`}>
+                            <Link to={`/account/${currentUser?.id}`}>
                                 <HeaderButton>Личный кабинет</HeaderButton>
                             </Link>
 

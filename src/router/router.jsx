@@ -44,7 +44,7 @@ const router = createBrowserRouter(
 
             <Route element={<ProtectedRoute redirectPath={LOGIN_ROUTE} />}>
                 <Route
-                    path={ACCOUNT}
+                    path={`${ACCOUNT}/:id`}
                     element={<Account />}
                     loader={({ params }) => LoaderFunctions.getUserAds(params.id)}
                     errorElement={<NotFound />}
