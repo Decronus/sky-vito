@@ -47,6 +47,10 @@ class Queries {
     deleteAdv(id) {
         return axiosInstance.delete(`ads/${id}`, { headers: auth() });
     }
+
+    patchUpdateAdv(id, body) {
+        return axiosInstance.patch(`ads/${id}`, body, { headers: auth() });
+    }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

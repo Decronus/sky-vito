@@ -15,8 +15,6 @@ function AdvPage() {
     const navigate = useNavigate();
     const adv = useLoaderData();
     const currentUser = useSelector(userSelector);
-    console.log("adv", adv);
-    console.log("curr", currentUser);
 
     const [activeImg, setActiveImg] = useState(0);
     const [visibleReviews, setVisibleReviews] = useState(false);
