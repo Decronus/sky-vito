@@ -7,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";
 import { logIn } from "../../store/actions/creators/main";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    console.log(location);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -33,7 +36,7 @@ function Login() {
                         localStorage.setItem("user", JSON.stringify(user.data));
                     });
                 })
-                .then(() => navigate("/"));
+                .then(() => navigate(location?.state?.from ? location.state.from : "/"));
         }
     }
 

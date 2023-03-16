@@ -10,9 +10,11 @@ import { useSelector } from "react-redux";
 import PhoneButton from "../../components/phone-button/PhoneButton";
 import Queries from "../../services/queries.service";
 import { LOGIN_ROUTE } from "../../utils/consts";
+import { useLocation } from "react-router-dom";
 
 function AdvPage() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [adv, comments] = useLoaderData();
     const currentUser = useSelector(userSelector);
 
@@ -87,7 +89,8 @@ function AdvPage() {
                             onClick={() =>
                                 currentUser || comments?.length !== 0
                                     ? setVisibleReviews(true)
-                                    : navigate(`/${LOGIN_ROUTE}`)
+                                    : // : navigate(`/${LOGIN_ROUTE}`)
+                                      navigate(`/${LOGIN_ROUTE}`, { state: { from: location.pathname } })
                             }
                             // disabled={!currentUser && comments.length === 0}
                         >
