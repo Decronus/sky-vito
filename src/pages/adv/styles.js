@@ -36,6 +36,8 @@ export const AdvImage = styled.div`
     background: ${({ url }) => (url ? `url(${API_URL + url})` : "#DDDDDD")};
     background-size: cover;
     background-position: center;
+    cursor: pointer;
+    border: "1px solid #009EE4";
 `;
 
 export const AdvTitle = styled.p`
@@ -60,6 +62,7 @@ export const AdvReviews = styled.p`
     margin-bottom: 34px;
     color: #009ee4;
     cursor: pointer;
+    pointer-events: ${({ disabled }) => (disabled ? "none" : undefined)};
 `;
 
 export const AdvPrice = styled.p`
@@ -82,6 +85,9 @@ export const SellerAvatar = styled.img`
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    background: ${({ url }) => (url ? `url(${API_URL + url})` : "#DDDDDD")};
+    background-size: cover;
+    background-position: center;
 `;
 
 export const SellerName = styled(Link)`
@@ -97,4 +103,9 @@ export const SellerActivity = styled.p`
 
 export const AdvDescription = styled.p`
     width: 70%;
+`;
+
+export const NoAdvDescription = styled(AdvDescription)`
+    opacity: 30%;
+    font-style: italic;
 `;
