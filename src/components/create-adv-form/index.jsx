@@ -4,26 +4,38 @@ import MainButton from "../main-button";
 import CloseFormButton from "../close-form-button";
 import plug from "../../assets/static/add_adv_photo_plug.jpg";
 import Queries from "../../services/queries.service";
-import { create } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 function CreateAdvForm({ closeForm }) {
+    const navigate = useNavigate();
     const hiddenFileInput = useRef();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
 
-    const [advImage, setAdvImage] = useState();
+    const [advImages, setAdvImages] = useState([]);
+    const [files, setFiles] = useState([]);
 
-    const handleClick = (e) => {
-        const { target } = e;
-        console.log(target);
+    const chooseImage = () => {
+        hiddenFileInput.current.click();
     };
 
     const uploadFiles = () => {
-        const fileUploaded = hiddenFileInput.current.files[0];
-        const obj = URL.createObjectURL(fileUploaded);
-        setAdvImage(obj);
+        const filesUploaded = hiddenFileInput.current.files;
+        if (filesUploaded.length > 5) {
+            alert("Выберите максимум 5 изображений");
+            return;
+        }
+        setFiles(filesUploaded);
+
+        const tempArray = [];
+        for (let file of filesUploaded) {
+            const obj = URL.createObjectURL(file);
+            tempArray.push(obj);
+        }
+
+        setAdvImages(tempArray);
     };
 
     const createAdv = (event) => {
@@ -35,9 +47,18 @@ function CreateAdvForm({ closeForm }) {
             price: price,
         };
 
-        Queries.postCreateAdv(body)
-            .then((adv) => console.log(adv.data))
-            .then(() => closeForm());
+        Queries.postCreateAdv(body).then((adv) => {
+            for (let file of files) {
+                const form = new FormData();
+                form.append("file", file);
+
+                Queries.postAddImageToAdv(adv.data.id, form)
+                    .then(() => navigate(window.location.pathname))
+                    .catch((error) => alert(error));
+            }
+
+            closeForm();
+        });
     };
     return (
         <S.CreateAdvBack>
@@ -68,21 +89,22 @@ function CreateAdvForm({ closeForm }) {
                         />
                     </S.InputWrapper>
                     <S.InputWrapper>
-                        <label htmlFor="adv-photo">
+                        <label htmlFor="adv-photo" style={{ marginBottom: "6px" }}>
                             Фотографии товара <span>не более 5 фотографий</span>
                         </label>
                         <S.FormInputFile
                             name="adv-photo"
                             type="file"
                             accept="image/*"
+                            multiple
                             ref={hiddenFileInput}
                             onChange={uploadFiles}
                         />
 
                         <S.FormAdvImages>
-                            {Array.from({ length: 5 }, (_v, k) => (
-                                <div key={k} onClick={handleClick}>
-                                    <img src={advImage || plug} alt="название" />
+                            {Array.from({ length: 5 }, (el, index) => (
+                                <div key={index} onClick={chooseImage}>
+                                    <S.UploadedImage url={advImages[index] || plug}></S.UploadedImage>
                                 </div>
                             ))}
                         </S.FormAdvImages>

@@ -59,6 +59,12 @@ class Queries {
     patchUpdateAdv(id, body) {
         return axiosInstance.patch(`ads/${id}`, body, { headers: auth() });
     }
+
+    postAddImageToAdv(id, body) {
+        return axiosInstance.post(`ads/${id}/image`, body, {
+            headers: Object.assign(auth(), { "Content-type": "multipart/form-data" }),
+        });
+    }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

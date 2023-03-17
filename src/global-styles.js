@@ -45,9 +45,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   input {
-    outline: 1px solid rgba(0, 0, 0, 0.2);
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 6px;
+
 
     :focus {
       outline: 1px solid #009EE4;

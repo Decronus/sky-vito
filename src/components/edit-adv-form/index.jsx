@@ -5,8 +5,10 @@ import plug from "../../assets/static/add_adv_photo_plug.jpg";
 import MainButton from "../main-button";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils/consts";
 
 function EditAdvForm({ adv, closeForm }) {
+    console.log("adv", adv);
     const hiddenFileInput = useRef();
     const navigate = useNavigate();
 
@@ -14,7 +16,13 @@ function EditAdvForm({ adv, closeForm }) {
     const [description, setDescription] = useState(adv?.description);
     const [price, setPrice] = useState(adv?.price);
     const [activeButton, setActiveButton] = useState(false);
-    const [advImage, setAdvImage] = useState();
+    const [initImages, setInitImages] = useState(true);
+    const [advImages, setAdvImages] = useState([]);
+    const [files, setFiles] = useState([]);
+
+    const chooseImage = () => {
+        hiddenFileInput.current.click();
+    };
 
     const newAdvData = {
         title: title,
@@ -30,19 +38,7 @@ function EditAdvForm({ adv, closeForm }) {
         }
         return false;
     };
-
-    const handleClick = (e) => {
-        const { target } = e;
-
-        console.log(target);
-    };
-
-    const handleChange = () => {
-        const fileUploaded = hiddenFileInput.current.files[0];
-        const obj = URL.createObjectURL(fileUploaded);
-        setAdvImage(obj);
-    };
-
+    console.log("advImages", advImages);
     useEffect(() => {
         setActiveButton(checkNewAdvData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,12 +55,61 @@ function EditAdvForm({ adv, closeForm }) {
 
         Queries.patchUpdateAdv(adv.id, body)
             .then((adv) => {
-                console.log("adv.data", adv.data);
-                closeForm();
-                navigate(`/adv/${adv.data.id}`);
+                for (let file of files) {
+                    const form = new FormData();
+                    form.append("file", file);
+
+                    Queries.postAddImageToAdv(adv.data.id, form)
+                        .then(() => {
+                            closeForm();
+                            navigate(window.location.pathname);
+                        })
+                        .catch((error) => alert(error));
+                }
             })
             .catch((error) => alert(error));
     }
+    console.log("init", initImages);
+    const uploadFiles = () => {
+        const filesUploaded = hiddenFileInput.current.files;
+        if (filesUploaded.length > 5) {
+            alert("Выберите максимум 5 изображений");
+            return;
+        }
+        setFiles(filesUploaded);
+        setInitImages(false);
+
+        const tempArray = [];
+        for (let file of filesUploaded) {
+            const obj = URL.createObjectURL(file);
+            tempArray.push(obj);
+        }
+
+        setAdvImages(tempArray);
+    };
+
+    const createAdv = (event) => {
+        event.preventDefault();
+
+        const body = {
+            title: title,
+            description: description,
+            price: price,
+        };
+
+        Queries.postCreateAdv(body).then((adv) => {
+            for (let file of files) {
+                const form = new FormData();
+                form.append("file", file);
+
+                Queries.postAddImageToAdv(adv.data.id, form)
+                    .then(() => navigate(window.location.pathname))
+                    .catch((error) => alert(error));
+            }
+
+            closeForm();
+        });
+    };
 
     return (
         <S.EditBack>
@@ -102,14 +147,22 @@ function EditAdvForm({ adv, closeForm }) {
                             name="adv-photo"
                             type="file"
                             accept="image/*"
+                            multiple
                             ref={hiddenFileInput}
-                            onChange={handleChange}
+                            onChange={uploadFiles}
                         />
 
                         <S.FormAdvImages>
-                            {Array.from({ length: 5 }, (_v, k) => (
-                                <div key={k} onClick={handleClick}>
-                                    <img src={advImage || plug} alt="название" />
+                            {Array.from({ length: 5 }, (el, index) => (
+                                <div key={index} onClick={chooseImage}>
+                                    <S.UploadedImage
+                                        url={
+                                            advImages[index] ||
+                                            (initImages &&
+                                                (adv.images[index]?.url ? API_URL + adv.images[index]?.url : null)) ||
+                                            plug
+                                        }
+                                    ></S.UploadedImage>
                                 </div>
                             ))}
                         </S.FormAdvImages>

@@ -43,7 +43,13 @@ function Header() {
                 </S.HeaderInner>
             </StyledContainer>
 
-            {visibleAddAdv && <CreateAdvForm closeForm={() => setVisibleAddAdv(false)} />}
+            {visibleAddAdv && (
+                <CreateAdvForm
+                    closeForm={(event) => {
+                        setVisibleAddAdv(false);
+                    }}
+                />
+            )}
         </S.Header>
     );
 }

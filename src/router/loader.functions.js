@@ -3,7 +3,7 @@ import Queries from "../services/queries.service";
 class LoaderFunctions {
     async getAllAds() {
         const ads = await Queries.getAllAds();
-        return ads.data;
+        return ads.data.reverse();
     }
 
     async getUserAds(id) {

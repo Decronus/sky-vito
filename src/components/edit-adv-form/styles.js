@@ -9,7 +9,6 @@ export const EditBack = styled.div`
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
     display: flex;
     justify-content: center;
 `;
@@ -39,6 +38,19 @@ export const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 4px;
+    span {
+        color: rgba(0, 0, 0, 0.3);
+        margin-left: 10px;
+    }
+`;
+
+export const UploadedImage = styled.div`
+    width: 88px;
+    height: 88px;
+    cursor: pointer;
+    background: ${({ url }) => `url(${url})`};
+    background-size: cover;
+    background-position: center;
 `;
 
 export const FormInputName = styled.input`

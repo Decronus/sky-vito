@@ -10,7 +10,6 @@ export const ReviewsBack = styled.div`
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
     display: flex;
     justify-content: center;
 `;
@@ -52,6 +51,7 @@ export const ReviewSendForm = styled.form`
 export const ReviewSendFormInput = styled.input`
     padding: 10px 20px 66px 20px;
     margin-bottom: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
 export const ReviewsList = styled.div`

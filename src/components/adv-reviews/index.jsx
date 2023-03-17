@@ -18,11 +18,11 @@ function AdvReviews({ closeForm, comments, adv }) {
         event.preventDefault();
 
         Queries.postCreateAdsComment(adv?.id, { text: text })
-            .then((response) => {
+            .then(() => {
                 setText("");
                 navigate(`/${ADV_ROUTE}/${adv.id}`);
             })
-            .catch((error) => alert("error"));
+            .catch((error) => alert(error));
     };
 
     return (

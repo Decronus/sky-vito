@@ -9,7 +9,6 @@ export const CreateAdvBack = styled.div`
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
     display: flex;
     justify-content: center;
 `;
@@ -39,6 +38,10 @@ export const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 4px;
+    span {
+        color: rgba(0, 0, 0, 0.3);
+        margin-left: 10px;
+    }
 `;
 
 export const FormInputName = styled.input`
@@ -56,6 +59,17 @@ export const FormInputFile = styled.input`
 export const FormAdvImages = styled.div`
     display: flex;
     column-gap: 10px;
+    div {
+        cursor: pointer;
+    }
+`;
+
+export const UploadedImage = styled.div`
+    width: 88px;
+    height: 88px;
+    background: ${({ url }) => `url(${url})`};
+    background-size: cover;
+    background-position: center;
 `;
 
 export const FormInputPriceWrapper = styled.div`
