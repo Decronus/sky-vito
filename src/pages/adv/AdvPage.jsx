@@ -89,10 +89,8 @@ function AdvPage() {
                             onClick={() =>
                                 currentUser || comments?.length !== 0
                                     ? setVisibleReviews(true)
-                                    : // : navigate(`/${LOGIN_ROUTE}`)
-                                      navigate(`/${LOGIN_ROUTE}`, { state: { from: location.pathname } })
+                                    : navigate(`/${LOGIN_ROUTE}`, { state: { from: location.pathname } })
                             }
-                            // disabled={!currentUser && comments.length === 0}
                         >
                             {formatCommentEnding(comments)}
                         </S.AdvReviews>
@@ -132,7 +130,7 @@ function AdvPage() {
                     )}
                 </div>
             </StyledContainer>
-            {visibleReviews && <AdvReviews closeForm={() => setVisibleReviews(false)} comments={comments} />}
+            {visibleReviews && <AdvReviews adv={adv} comments={comments} closeForm={() => setVisibleReviews(false)} />}
 
             {visibleEditAdvForm && <EditAdvForm adv={adv} closeForm={() => setVisibleEditAdvForm(false)} />}
         </S.Main>

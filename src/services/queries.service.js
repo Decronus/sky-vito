@@ -10,6 +10,10 @@ class Queries {
         return axiosInstance.get(`ads/${id}/comments`);
     }
 
+    postCreateAdsComment(id, body) {
+        return axiosInstance.post(`ads/${id}/comments`, body, { headers: auth() });
+    }
+
     patchCurrentUser(body) {
         return axiosInstance.patch("user", body, { headers: auth() });
     }
