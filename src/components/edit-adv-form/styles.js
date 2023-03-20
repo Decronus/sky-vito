@@ -51,6 +51,21 @@ export const UploadedImage = styled.div`
     background: ${({ url }) => `url(${url})`};
     background-size: cover;
     background-position: center;
+    position: relative;
+`;
+
+export const UploadedImageCloseDiv = styled.div`
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    right: 3px;
 `;
 
 export const FormInputName = styled.input`

@@ -21,8 +21,10 @@ function EditAdvForm({ adv, closeForm }) {
     const [files, setFiles] = useState([]);
     console.log("files", files);
 
-    const chooseImage = () => {
-        hiddenFileInput.current.click();
+    const chooseImage = (event) => {
+        if (event.currentTarget === event.target) {
+            hiddenFileInput.current.click();
+        }
     };
 
     const newAdvData = {
@@ -44,6 +46,7 @@ function EditAdvForm({ adv, closeForm }) {
 
     useEffect(() => {
         setActiveButton(checkNewAdvData);
+        console.log("useeffect", adv);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newAdvData]);
 
@@ -103,6 +106,16 @@ function EditAdvForm({ adv, closeForm }) {
         setAdvImages(tempArray);
     };
 
+    const deleteImageFromAdv = (advId, url, index) => {
+        if (url) {
+            Queries.deleteImageFromAdv(advId, url).catch((error) => alert(`Ошибка при удалении изображения: ${error}`));
+            navigate(window.location.pathname);
+        } else {
+            advImages.splice(index, 1);
+            navigate(window.location.pathname);
+        }
+    };
+
     return (
         <S.EditBack>
             <S.FormWrapper>
@@ -146,15 +159,43 @@ function EditAdvForm({ adv, closeForm }) {
 
                         <S.FormAdvImages>
                             {Array.from({ length: 5 }, (el, index) => (
-                                <div key={index} onClick={chooseImage}>
+                                <div key={index}>
                                     <S.UploadedImage
+                                        onClick={chooseImage}
                                         url={
                                             advImages[index] ||
                                             (initImages &&
                                                 (adv.images[index]?.url ? API_URL + adv.images[index]?.url : null)) ||
                                             plug
                                         }
-                                    ></S.UploadedImage>
+                                    >
+                                        {(adv.images[index]?.url || advImages[index]) && (
+                                            <S.UploadedImageCloseDiv
+                                                onClick={() =>
+                                                    deleteImageFromAdv(adv.id, adv.images[index]?.url, index)
+                                                }
+                                            >
+                                                <svg
+                                                    width="30"
+                                                    height="30"
+                                                    viewBox="0 0 30 30"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M7.27466 7.72559L21.8236 22.2745"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <path
+                                                        d="M21.8235 7.72559L7.27454 22.2745"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                </svg>
+                                            </S.UploadedImageCloseDiv>
+                                        )}
+                                    </S.UploadedImage>
                                 </div>
                             ))}
                         </S.FormAdvImages>
