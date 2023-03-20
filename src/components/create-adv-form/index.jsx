@@ -48,16 +48,30 @@ function CreateAdvForm({ closeForm }) {
         };
 
         Queries.postCreateAdv(body).then((adv) => {
-            for (let file of files) {
+            // for (let file of files) {
+            //     const form = new FormData();
+            //     form.append("file", file);
+
+            //     Queries.postAddImageToAdv(adv.data.id, form)
+            //         .then(() => navigate(window.location.pathname))
+            //         .catch((error) => alert(error));
+            // }
+
+            const uploadImgRequests = Array.from(files).map((file) => {
                 const form = new FormData();
                 form.append("file", file);
 
-                Queries.postAddImageToAdv(adv.data.id, form)
-                    .then(() => navigate(window.location.pathname))
-                    .catch((error) => alert(error));
-            }
+                return Queries.postAddImageToAdv(adv.data.id, form).catch((error) =>
+                    alert(`Ошибка при загрузке изображений: ${error}`)
+                );
+            });
 
-            closeForm();
+            Promise.all(uploadImgRequests).then(() => {
+                closeForm();
+                navigate(window.location.pathname);
+            });
+
+            // closeForm();
         });
     };
     return (

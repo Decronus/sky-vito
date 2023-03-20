@@ -65,6 +65,10 @@ class Queries {
             headers: Object.assign(auth(), { "Content-type": "multipart/form-data" }),
         });
     }
+
+    deleteImageFromAdv(id, file_url) {
+        return axiosInstance.delete(`ads/${id}/image?file_url=${file_url}`, { headers: auth() });
+    }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

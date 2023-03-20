@@ -31,9 +31,8 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
   }
 
-  html {
+  * {
     font-family: 'Roboto-Regular';
-
   }
 
   img {

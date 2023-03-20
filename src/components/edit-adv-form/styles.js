@@ -57,7 +57,7 @@ export const FormInputName = styled.input`
     padding: 13px 20px;
 `;
 
-export const FormInputDescription = styled.input`
+export const FormInputDescription = styled.textarea`
     padding: 13px 20px 163px 20px;
 `;
 

@@ -19,6 +19,7 @@ function EditAdvForm({ adv, closeForm }) {
     const [initImages, setInitImages] = useState(true);
     const [advImages, setAdvImages] = useState([]);
     const [files, setFiles] = useState([]);
+    console.log("files", files);
 
     const chooseImage = () => {
         hiddenFileInput.current.click();
@@ -31,6 +32,8 @@ function EditAdvForm({ adv, closeForm }) {
     };
 
     const checkNewAdvData = () => {
+        if (files.length) return true;
+
         for (let el in newAdvData) {
             if (String(newAdvData[el]) !== String(adv[el])) {
                 return true;
@@ -38,7 +41,7 @@ function EditAdvForm({ adv, closeForm }) {
         }
         return false;
     };
-    console.log("advImages", advImages);
+
     useEffect(() => {
         setActiveButton(checkNewAdvData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,21 +58,33 @@ function EditAdvForm({ adv, closeForm }) {
 
         Queries.patchUpdateAdv(adv.id, body)
             .then((adv) => {
-                for (let file of files) {
-                    const form = new FormData();
-                    form.append("file", file);
+                if (files.length) {
+                    const deleteImgRequests = adv.data.images.map((image) => {
+                        return Queries.deleteImageFromAdv(adv.data.id, image.url).catch((error) =>
+                            alert(`Ошибка при загрузке изображений: ${error}`)
+                        );
+                    });
 
-                    Queries.postAddImageToAdv(adv.data.id, form)
-                        .then(() => {
+                    Promise.all(deleteImgRequests).then(() => {
+                        const uploadImgRequests = Array.from(files).map((file) => {
+                            const form = new FormData();
+                            form.append("file", file);
+
+                            return Queries.postAddImageToAdv(adv.data.id, form).catch((error) =>
+                                alert(`Ошибка при загрузке изображений: ${error}`)
+                            );
+                        });
+
+                        Promise.all(uploadImgRequests).then(() => {
                             closeForm();
                             navigate(window.location.pathname);
-                        })
-                        .catch((error) => alert(error));
+                        });
+                    });
                 }
             })
-            .catch((error) => alert(error));
+            .catch((error) => alert(`Ошибка при изменении объявления: ${error}`));
     }
-    console.log("init", initImages);
+
     const uploadFiles = () => {
         const filesUploaded = hiddenFileInput.current.files;
         if (filesUploaded.length > 5) {
@@ -86,29 +101,6 @@ function EditAdvForm({ adv, closeForm }) {
         }
 
         setAdvImages(tempArray);
-    };
-
-    const createAdv = (event) => {
-        event.preventDefault();
-
-        const body = {
-            title: title,
-            description: description,
-            price: price,
-        };
-
-        Queries.postCreateAdv(body).then((adv) => {
-            for (let file of files) {
-                const form = new FormData();
-                form.append("file", file);
-
-                Queries.postAddImageToAdv(adv.data.id, form)
-                    .then(() => navigate(window.location.pathname))
-                    .catch((error) => alert(error));
-            }
-
-            closeForm();
-        });
     };
 
     return (
