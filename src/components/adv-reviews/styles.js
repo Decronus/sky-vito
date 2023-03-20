@@ -63,6 +63,17 @@ export const ReviewsList = styled.div`
 export const Review = styled.div`
     display: flex;
     column-gap: 12px;
+    position: relative;
+`;
+
+export const ReviewDeleteIcon = styled.div`
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    svg:hover path {
+        fill: #009ee4;
+    }
 `;
 
 export const ReviewerAvatar = styled.img`

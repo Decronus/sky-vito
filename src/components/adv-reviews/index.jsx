@@ -53,8 +53,27 @@ function AdvReviews({ closeForm, comments, adv }) {
                     )}
 
                     <S.ReviewsList>
-                        {comments.map((el, key) => (
-                            <S.Review key={key}>
+                        {comments.map((el, index) => (
+                            <S.Review key={index}>
+                                {el.author.id === currentUser.id && (
+                                    <S.ReviewDeleteIcon>
+                                        <svg
+                                            width="17"
+                                            height="17"
+                                            viewBox="0 0 17 17"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d="M7.13486 8.54895L0.567429 15.1164L1.98164 16.5306L8.54907 9.96316L15.1165 16.5306L16.5307 15.1164L9.96329 8.54895L16.5306 1.98164L15.1164 0.567429L8.54907 7.13474L1.98177 0.567429L0.567551 1.98164L7.13486 8.54895Z"
+                                                fill="#AAAAAA"
+                                            />
+                                        </svg>
+                                    </S.ReviewDeleteIcon>
+                                )}
+
                                 <S.ReviewerAvatar url={el?.author.avatar} />
                                 <div>
                                     <S.ReviewerInfo>

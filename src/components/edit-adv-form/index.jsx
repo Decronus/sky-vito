@@ -8,7 +8,16 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/consts";
 
 function EditAdvForm({ adv, closeForm }) {
-    console.log("adv", adv);
+    function extractImages(adv) {
+        const tempArray = [];
+        for (let image of adv.images) {
+            console.log(image);
+            tempArray.push(API_URL + image.url);
+        }
+
+        return tempArray;
+    }
+
     const hiddenFileInput = useRef();
     const navigate = useNavigate();
 
@@ -16,10 +25,8 @@ function EditAdvForm({ adv, closeForm }) {
     const [description, setDescription] = useState(adv?.description);
     const [price, setPrice] = useState(adv?.price);
     const [activeButton, setActiveButton] = useState(false);
-    const [initImages, setInitImages] = useState(true);
-    const [advImages, setAdvImages] = useState([]);
+    const [advImages, setAdvImages] = useState(extractImages(adv));
     const [files, setFiles] = useState([]);
-    console.log("files", files);
 
     const chooseImage = (event) => {
         if (event.currentTarget === event.target) {
@@ -46,7 +53,6 @@ function EditAdvForm({ adv, closeForm }) {
 
     useEffect(() => {
         setActiveButton(checkNewAdvData);
-        console.log("useeffect", adv);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newAdvData]);
 
@@ -95,7 +101,6 @@ function EditAdvForm({ adv, closeForm }) {
             return;
         }
         setFiles(filesUploaded);
-        setInitImages(false);
 
         const tempArray = [];
         for (let file of filesUploaded) {
@@ -108,13 +113,27 @@ function EditAdvForm({ adv, closeForm }) {
 
     const deleteImageFromAdv = (advId, url, index) => {
         if (url) {
-            Queries.deleteImageFromAdv(advId, url).catch((error) => alert(`Ошибка при удалении изображения: ${error}`));
-            navigate(window.location.pathname);
+            Queries.deleteImageFromAdv(advId, url)
+                .then(() => {
+                    const newFiles = files;
+                    newFiles.splice(index, 1);
+                    setFiles(newFiles);
+
+                    deletePreviewImages(index);
+                })
+                .catch((error) => alert(`Ошибка при удалении изображения: ${error}`));
         } else {
-            advImages.splice(index, 1);
-            navigate(window.location.pathname);
+            deletePreviewImages(index);
         }
     };
+
+    function deletePreviewImages(index) {
+        const newAdvImages = advImages;
+        newAdvImages.splice(index, 1);
+
+        setAdvImages(newAdvImages);
+        navigate(window.location.pathname);
+    }
 
     return (
         <S.EditBack>
@@ -160,16 +179,8 @@ function EditAdvForm({ adv, closeForm }) {
                         <S.FormAdvImages>
                             {Array.from({ length: 5 }, (el, index) => (
                                 <div key={index}>
-                                    <S.UploadedImage
-                                        onClick={chooseImage}
-                                        url={
-                                            advImages[index] ||
-                                            (initImages &&
-                                                (adv.images[index]?.url ? API_URL + adv.images[index]?.url : null)) ||
-                                            plug
-                                        }
-                                    >
-                                        {(adv.images[index]?.url || advImages[index]) && (
+                                    <S.UploadedImage onClick={chooseImage} url={advImages[index] || plug}>
+                                        {advImages[index] && (
                                             <S.UploadedImageCloseDiv
                                                 onClick={() =>
                                                     deleteImageFromAdv(adv.id, adv.images[index]?.url, index)

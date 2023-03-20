@@ -16,9 +16,12 @@ function CreateAdvForm({ closeForm }) {
 
     const [advImages, setAdvImages] = useState([]);
     const [files, setFiles] = useState([]);
+    console.log(advImages);
 
-    const chooseImage = () => {
-        hiddenFileInput.current.click();
+    const chooseImage = (event) => {
+        if (event.currentTarget === event.target) {
+            hiddenFileInput.current.click();
+        }
     };
 
     const uploadFiles = () => {
@@ -48,15 +51,6 @@ function CreateAdvForm({ closeForm }) {
         };
 
         Queries.postCreateAdv(body).then((adv) => {
-            // for (let file of files) {
-            //     const form = new FormData();
-            //     form.append("file", file);
-
-            //     Queries.postAddImageToAdv(adv.data.id, form)
-            //         .then(() => navigate(window.location.pathname))
-            //         .catch((error) => alert(error));
-            // }
-
             const uploadImgRequests = Array.from(files).map((file) => {
                 const form = new FormData();
                 form.append("file", file);
@@ -70,10 +64,17 @@ function CreateAdvForm({ closeForm }) {
                 closeForm();
                 navigate(window.location.pathname);
             });
-
-            // closeForm();
         });
     };
+
+    function deletePreviewImages(index) {
+        const newAdvImages = advImages;
+        newAdvImages.splice(index, 1);
+
+        setAdvImages(newAdvImages);
+        navigate(window.location.pathname);
+    }
+
     return (
         <S.CreateAdvBack>
             <S.FormWrapper>
@@ -117,9 +118,30 @@ function CreateAdvForm({ closeForm }) {
 
                         <S.FormAdvImages>
                             {Array.from({ length: 5 }, (el, index) => (
-                                <div key={index} onClick={chooseImage}>
-                                    <S.UploadedImage url={advImages[index] || plug}></S.UploadedImage>
-                                </div>
+                                <S.UploadedImage key={index} url={advImages[index] || plug} onClick={chooseImage}>
+                                    {advImages[index] && (
+                                        <S.UploadedImageCloseDiv onClick={() => deletePreviewImages(index)}>
+                                            <svg
+                                                width="30"
+                                                height="30"
+                                                viewBox="0 0 30 30"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M7.27466 7.72559L21.8236 22.2745"
+                                                    stroke="white"
+                                                    strokeWidth="2"
+                                                />
+                                                <path
+                                                    d="M21.8235 7.72559L7.27454 22.2745"
+                                                    stroke="white"
+                                                    strokeWidth="2"
+                                                />
+                                            </svg>
+                                        </S.UploadedImageCloseDiv>
+                                    )}
+                                </S.UploadedImage>
                             ))}
                         </S.FormAdvImages>
                     </S.InputWrapper>
