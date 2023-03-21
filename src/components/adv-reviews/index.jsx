@@ -26,8 +26,8 @@ function AdvReviews({ closeForm, comments, adv }) {
     };
 
     return (
-        <S.ReviewsBack>
-            <S.ReviewsBlock>
+        <S.ReviewsBack onClick={closeForm}>
+            <S.ReviewsBlock onClick={(event) => event.stopPropagation()}>
                 <S.ReviewTitleWrapper>
                     <h2>Отзывы о товаре</h2>
                     <CloseFormButton onClick={closeForm} />

@@ -16,7 +16,6 @@ function CreateAdvForm({ closeForm }) {
 
     const [advImages, setAdvImages] = useState([]);
     const [files, setFiles] = useState([]);
-    console.log(advImages);
 
     const chooseImage = (event) => {
         if (event.currentTarget === event.target) {
@@ -76,8 +75,8 @@ function CreateAdvForm({ closeForm }) {
     }
 
     return (
-        <S.CreateAdvBack>
-            <S.FormWrapper>
+        <S.CreateAdvBack onClick={closeForm}>
+            <S.FormWrapper onClick={(event) => event.stopPropagation()}>
                 <S.TitleWrapper>
                     <h2>Новое объявление</h2>
                     <CloseFormButton onClick={closeForm} />

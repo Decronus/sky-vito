@@ -90,6 +90,8 @@ function EditAdvForm({ adv, closeForm }) {
                         });
                     });
                 }
+                closeForm();
+                navigate(window.location.pathname);
             })
             .catch((error) => alert(`Ошибка при изменении объявления: ${error}`));
     }
@@ -136,8 +138,8 @@ function EditAdvForm({ adv, closeForm }) {
     }
 
     return (
-        <S.EditBack>
-            <S.FormWrapper>
+        <S.EditBack onClick={closeForm}>
+            <S.FormWrapper onClick={(event) => event.stopPropagation()}>
                 <S.TitleWrapper>
                     <h2>Редактировать объявление</h2>
                     <CloseFormButton onClick={closeForm} />

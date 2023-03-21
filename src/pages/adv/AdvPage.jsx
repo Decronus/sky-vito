@@ -130,24 +130,9 @@ function AdvPage() {
                     )}
                 </div>
             </StyledContainer>
-            {visibleReviews && (
-                <AdvReviews
-                    adv={adv}
-                    comments={comments}
-                    closeForm={(event) => {
-                        setVisibleReviews(false);
-                    }}
-                />
-            )}
+            {visibleReviews && <AdvReviews adv={adv} comments={comments} closeForm={() => setVisibleReviews(false)} />}
 
-            {visibleEditAdvForm && (
-                <EditAdvForm
-                    adv={adv}
-                    closeForm={(event) => {
-                        setVisibleEditAdvForm(false);
-                    }}
-                />
-            )}
+            {visibleEditAdvForm && <EditAdvForm adv={adv} closeForm={() => setVisibleEditAdvForm(false)} />}
         </S.Main>
     );
 }
