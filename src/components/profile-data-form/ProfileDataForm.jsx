@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MainButton from "../main-button";
 import * as S from "./styles";
 // import mockAvatarMen from "../assets/static/mockAvatarMen.jpg";
@@ -6,6 +6,7 @@ import * as S from "./styles";
 import Queries from "../../services/queries.service";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../store/actions/creators/main";
+import UpdatePasswordForm from "./UpdatePasswordForm";
 
 function ProfileDataForm() {
     const dispatch = useDispatch();
@@ -136,11 +137,12 @@ function ProfileDataForm() {
                         onChange={(event) => setPhone(event.target.value)}
                     />
                 </S.InputWrapper>
-                <div>
-                    <MainButton type="submit" active={activeButton} onClick={updateUser}>
-                        Сохранить
-                    </MainButton>
-                </div>
+
+                <MainButton type="submit" active={activeButton} onClick={updateUser}>
+                    Сохранить
+                </MainButton>
+
+                <UpdatePasswordForm />
             </S.TextData>
         </S.DataForm>
     );

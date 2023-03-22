@@ -1,4 +1,4 @@
-import ProfileDataForm from "../../components/profile-data-form";
+import ProfileDataForm from "../../components/profile-data-form/ProfileDataForm";
 import { StyledContainer } from "../../global-styles";
 import Adv from "../../components/adv";
 import * as S from "./styles";

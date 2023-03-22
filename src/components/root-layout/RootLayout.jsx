@@ -45,7 +45,8 @@ function RootLayout() {
 
         const interval = setInterval(() => {
             checkCurrentUser();
-        }, 60 * 1000);
+            console.log("updateUser");
+        }, 30 * 1000);
 
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps

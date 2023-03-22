@@ -10,14 +10,6 @@ class Queries {
         return axiosInstance.get(`ads/${id}/comments`);
     }
 
-    postCreateAdsComment(id, body) {
-        return axiosInstance.post(`ads/${id}/comments`, body, { headers: auth() });
-    }
-
-    patchCurrentUser(body) {
-        return axiosInstance.patch("user", body, { headers: auth() });
-    }
-
     getAllAds() {
         return axiosInstance.get("ads");
     }
@@ -28,6 +20,10 @@ class Queries {
 
     getAllUsers() {
         return axiosInstance.get("user/all");
+    }
+
+    postCreateAdsComment(id, body) {
+        return axiosInstance.post(`ads/${id}/comments`, body, { headers: auth() });
     }
 
     postRegUser(body) {
@@ -52,18 +48,26 @@ class Queries {
         return axiosInstance.post("adstext", body, { headers: auth() });
     }
 
-    deleteAdv(id) {
-        return axiosInstance.delete(`ads/${id}`, { headers: auth() });
+    postAddImageToAdv(id, body) {
+        return axiosInstance.post(`ads/${id}/image`, body, {
+            headers: Object.assign(auth(), { "Content-type": "multipart/form-data" }),
+        });
+    }
+
+    patchCurrentUser(body) {
+        return axiosInstance.patch("user", body, { headers: auth() });
+    }
+
+    putUpdatePassword(body) {
+        return axiosInstance.put("user/password", body, { headers: auth() });
     }
 
     patchUpdateAdv(id, body) {
         return axiosInstance.patch(`ads/${id}`, body, { headers: auth() });
     }
 
-    postAddImageToAdv(id, body) {
-        return axiosInstance.post(`ads/${id}/image`, body, {
-            headers: Object.assign(auth(), { "Content-type": "multipart/form-data" }),
-        });
+    deleteAdv(id) {
+        return axiosInstance.delete(`ads/${id}`, { headers: auth() });
     }
 
     deleteImageFromAdv(id, file_url) {
