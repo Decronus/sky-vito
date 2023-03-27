@@ -1,5 +1,5 @@
 import React from "react";
-import Adv from "../../components/adv";
+import Adv from "../../components/adv/Adv";
 import { StyledContainer } from "../../global-styles";
 import * as S from "./styles";
 import { useLoaderData } from "react-router-dom";

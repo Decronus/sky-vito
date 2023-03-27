@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { GlobalStyle } from "../../global-styles";
 import Header from "../../components/header";
-import Search from "../../components/search";
+import Search from "../search/Search";
 import { Outlet } from "react-router-dom";
 import Queries from "../../services/queries.service";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";

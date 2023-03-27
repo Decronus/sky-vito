@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as S from "./styles";
 import HeaderButton from "./header-button";
 import { StyledContainer } from "../../global-styles";
-import CreateAdvForm from "../create-adv-form";
+import CreateAdvForm from "../create-adv-form/CreateAdvForm";
 import { useSelector, useDispatch } from "react-redux";
 import { userSelector } from "../../store/selectors/main";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";

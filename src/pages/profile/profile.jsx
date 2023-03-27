@@ -1,5 +1,5 @@
 import { StyledContainer } from "../../global-styles";
-import Adv from "../../components/adv";
+import Adv from "../../components/adv/Adv";
 import * as S from "./styles";
 import { useLoaderData } from "react-router-dom";
 import PhoneButton from "../../components/phone-button/PhoneButton";

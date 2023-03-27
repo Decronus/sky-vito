@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MainButton from "../main-button";
+import MainButton from "../main-button/MainButton";
 import * as S from "./styles";
 import Queries from "../../services/queries.service";
 import { checkActualAccessToken } from "../../decorators";

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import * as S from "./styles";
 import logo from "../../assets/static/logo.svg";
-import MainButton from "../main-button";
+import MainButton from "../main-button/MainButton";
 import { StyledContainer } from "../../global-styles";
 import { HOME_ROUTE } from "../../utils/consts";
 import { useDispatch } from "react-redux";

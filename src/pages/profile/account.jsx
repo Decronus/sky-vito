@@ -1,6 +1,6 @@
 import ProfileDataForm from "../../components/profile-data-form/ProfileDataForm";
 import { StyledContainer } from "../../global-styles";
-import Adv from "../../components/adv";
+import Adv from "../../components/adv/Adv";
 import * as S from "./styles";
 import { useLoaderData } from "react-router-dom";
 import { userSelector } from "../../store/selectors/main";

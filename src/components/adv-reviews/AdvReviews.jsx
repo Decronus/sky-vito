@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as S from "./styles";
-import MainButton from "../main-button";
-import CloseFormButton from "../close-form-button";
+import MainButton from "../main-button/MainButton";
+import CloseFormButton from "../close-form-button/CloseFormButton";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../store/selectors/main";
 import Queries from "../../services/queries.service";

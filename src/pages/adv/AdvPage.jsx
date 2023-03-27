@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import { StyledContainer } from "../../global-styles";
 import * as S from "./styles";
-import AdvReviews from "../../components/adv-reviews";
-import MainButton from "../../components/main-button";
-import EditAdvForm from "../../components/edit-adv-form";
+import AdvReviews from "../../components/adv-reviews/AdvReviews";
+import MainButton from "../../components/main-button/MainButton";
+import EditAdvForm from "../../components/edit-adv-form/EditAdvForm";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { userSelector } from "../../store/selectors/main";
 import { useSelector } from "react-redux";

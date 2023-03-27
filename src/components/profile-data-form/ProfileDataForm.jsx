@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import MainButton from "../main-button";
+import MainButton from "../main-button/MainButton";
 import * as S from "./styles";
 // import mockAvatarMen from "../assets/static/mockAvatarMen.jpg";
 // import mockAvatarWomen from '../../assets/static/mockAvatarWomen.jpg';

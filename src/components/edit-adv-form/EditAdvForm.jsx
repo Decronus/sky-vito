@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as S from "./styles";
-import CloseFormButton from "../close-form-button";
+import CloseFormButton from "../close-form-button/CloseFormButton";
 import plug from "../../assets/static/add_adv_photo_plug.jpg";
-import MainButton from "../main-button";
+import MainButton from "../main-button/MainButton";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/consts";

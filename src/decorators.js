@@ -10,15 +10,25 @@ export async function checkActualAccessToken(fn) {
             refresh_token: localStorage.getItem(REFRESH_TOKEN),
         };
 
-        const response = await Queries.postUpdateTokens(body);
+        // const response = await Queries.postUpdateTokens(body);
 
-        const timeTokensUpdated = Math.trunc(Date.now() / 1000);
-        localStorage.setItem("timeTokensUpdated", timeTokensUpdated);
+        // const timeTokensUpdated = Math.trunc(Date.now() / 1000);
+        // localStorage.setItem("timeTokensUpdated", timeTokensUpdated);
 
-        localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
-        localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
+        // localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
+        // localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
 
-        return fn;
+        // return fn;
+
+        Queries.postUpdateTokens(body).then((response) => {
+            const timeTokensUpdated = Math.trunc(Date.now() / 1000);
+            localStorage.setItem("timeTokensUpdated", timeTokensUpdated);
+
+            localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
+            localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
+
+            return fn;
+        });
     } else {
         console.log("without updating tokens");
         return fn;

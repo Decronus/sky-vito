@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LogoAuth from "../../assets/static/logo_auth.svg";
 import * as S from "./styles";
-import MainButton from "../../components/main-button";
+import MainButton from "../../components/main-button/MainButton";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/consts";
