@@ -11,6 +11,7 @@ import PhoneButton from "../../components/phone-button/PhoneButton";
 import Queries from "../../services/queries.service";
 import { LOGIN_ROUTE } from "../../utils/consts";
 import { useLocation } from "react-router-dom";
+import { checkActualAccessToken } from "../../decorators";
 
 function AdvPage() {
     const navigate = useNavigate();
@@ -102,7 +103,10 @@ function AdvPage() {
                                     <MainButton type="button" onClick={() => setVisibleEditAdvForm(true)}>
                                         Редактировать
                                     </MainButton>
-                                    <MainButton type="button" onClick={deleteAdv}>
+                                    <MainButton
+                                        type="button"
+                                        onClick={(event) => checkActualAccessToken(deleteAdv(event))}
+                                    >
                                         Снять с публикации
                                     </MainButton>
                                 </>

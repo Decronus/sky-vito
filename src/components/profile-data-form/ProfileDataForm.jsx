@@ -7,6 +7,7 @@ import Queries from "../../services/queries.service";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../store/actions/creators/main";
 import UpdatePasswordForm from "./UpdatePasswordForm";
+import { checkActualAccessToken } from "../../decorators";
 
 function ProfileDataForm() {
     const dispatch = useDispatch();
@@ -90,7 +91,7 @@ function ProfileDataForm() {
                     name="avatar"
                     accept="image/*"
                     ref={hiddenFileInput}
-                    onChange={uploadAvatar}
+                    onChange={() => checkActualAccessToken(uploadAvatar())}
                 />
             </S.AvatarWrapper>
             <S.TextData>
@@ -138,7 +139,11 @@ function ProfileDataForm() {
                     />
                 </S.InputWrapper>
 
-                <MainButton type="submit" active={activeButton} onClick={updateUser}>
+                <MainButton
+                    type="submit"
+                    active={activeButton}
+                    onClick={(event) => checkActualAccessToken(updateUser(event))}
+                >
                     Сохранить
                 </MainButton>
 

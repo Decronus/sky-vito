@@ -2,6 +2,7 @@ import { useState } from "react";
 import MainButton from "../main-button";
 import * as S from "./styles";
 import Queries from "../../services/queries.service";
+import { checkActualAccessToken } from "../../decorators";
 
 function UpdatePasswordForm() {
     const [oldPassword, setOldPassword] = useState("");
@@ -66,7 +67,12 @@ function UpdatePasswordForm() {
                 </S.InputWrapper>
             </S.InputsNameBlock>
 
-            <MainButton type="submit" active={oldPassword && newPassword1 && newPassword2} onClick={updatePassword}>
+            <MainButton
+                type="submit"
+                active={oldPassword && newPassword1 && newPassword2}
+                // onClick={updatePassword}
+                onClick={(event) => checkActualAccessToken(updatePassword(event))}
+            >
                 Поменять пароль
             </MainButton>
         </>

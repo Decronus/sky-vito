@@ -71,6 +71,7 @@ export const UploadedImage = styled.div`
     background-size: cover;
     background-position: center;
     position: relative;
+    cursor: ponter;
 `;
 
 export const UploadedImageCloseDiv = styled.div`

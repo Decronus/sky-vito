@@ -7,6 +7,7 @@ import { userSelector } from "../../store/selectors/main";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { ADV_ROUTE } from "../../utils/consts";
+import { checkActualAccessToken } from "../../decorators";
 
 function AdvReviews({ closeForm, comments, adv }) {
     const navigate = useNavigate();
@@ -44,7 +45,11 @@ function AdvReviews({ closeForm, comments, adv }) {
                                     onChange={(event) => setText(event.target.value)}
                                 />
                                 <div>
-                                    <MainButton active={text} type="submit" onClick={addComment}>
+                                    <MainButton
+                                        active={text}
+                                        type="submit"
+                                        onClick={(event) => checkActualAccessToken(addComment(event))}
+                                    >
                                         Опубликовать
                                     </MainButton>
                                 </div>

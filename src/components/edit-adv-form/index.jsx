@@ -6,6 +6,7 @@ import MainButton from "../main-button";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/consts";
+import { checkActualAccessToken } from "../../decorators";
 
 function EditAdvForm({ adv, closeForm }) {
     function extractImages(adv) {
@@ -184,8 +185,13 @@ function EditAdvForm({ adv, closeForm }) {
                                     <S.UploadedImage onClick={chooseImage} url={advImages[index] || plug}>
                                         {advImages[index] && (
                                             <S.UploadedImageCloseDiv
+                                                // onClick={() =>
+                                                //     deleteImageFromAdv(adv.id, adv.images[index]?.url, index)
+                                                // }
                                                 onClick={() =>
-                                                    deleteImageFromAdv(adv.id, adv.images[index]?.url, index)
+                                                    checkActualAccessToken(
+                                                        deleteImageFromAdv(adv.id, adv.images[index]?.url, index)
+                                                    )
                                                 }
                                             >
                                                 <svg
@@ -226,7 +232,7 @@ function EditAdvForm({ adv, closeForm }) {
                         </S.FormInputPriceWrapper>
                     </S.InputWrapper>
                     <div>
-                        <MainButton active={activeButton} onClick={updateAdv}>
+                        <MainButton active={activeButton} onClick={(event) => checkActualAccessToken(updateAdv(event))}>
                             Сохранить
                         </MainButton>
                     </div>

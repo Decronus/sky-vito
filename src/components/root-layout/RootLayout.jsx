@@ -27,6 +27,9 @@ function RootLayout() {
 
                     Queries.postUpdateTokens(body)
                         .then((response) => {
+                            const timeTokensUpdated = Math.trunc(Date.now() / 1000);
+                            localStorage.setItem("timeTokensUpdated", timeTokensUpdated);
+
                             localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
                             localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
                         })
@@ -43,12 +46,12 @@ function RootLayout() {
     useEffect(() => {
         checkCurrentUser();
 
-        const interval = setInterval(() => {
-            checkCurrentUser();
-            console.log("updateUser");
-        }, 30 * 1000);
+        // const interval = setInterval(() => {
+        //     checkCurrentUser();
+        //     console.log("updateUser");
+        // }, 30 * 1000);
 
-        return () => clearInterval(interval);
+        // return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -56,8 +59,12 @@ function RootLayout() {
         <div className="root-layout">
             <GlobalStyle />
             <Header />
-            <Search />
-            <Outlet />
+
+            <div style={{ padding: "0 20px" }}>
+                <Search />
+                <Outlet />
+            </div>
+
             <ScrollRestoration />
         </div>
     );

@@ -5,6 +5,7 @@ import CloseFormButton from "../close-form-button";
 import plug from "../../assets/static/add_adv_photo_plug.jpg";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
+import { checkActualAccessToken } from "../../decorators";
 
 function CreateAdvForm({ closeForm }) {
     const navigate = useNavigate();
@@ -155,7 +156,7 @@ function CreateAdvForm({ closeForm }) {
                         </S.FormInputPriceWrapper>
                     </S.InputWrapper>
                     <div>
-                        <MainButton active={title} onClick={createAdv}>
+                        <MainButton active={title} onClick={(event) => checkActualAccessToken(createAdv(event))}>
                             Опубликовать
                         </MainButton>
                     </div>
