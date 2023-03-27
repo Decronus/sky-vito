@@ -15,7 +15,6 @@ export async function checkActualAccessToken() {
         localStorage.setItem("timeTokensUpdated", timeTokensUpdated);
 
         localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
-
         localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
     }
 }
