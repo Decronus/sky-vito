@@ -7,7 +7,7 @@ import { userSelector } from "../../store/selectors/main";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { ADV_ROUTE } from "../../utils/consts";
-import { checkActualAccessToken } from "../../decorators";
+import { checkActualAccessToken } from "../../utils/decorators";
 
 function AdvReviews({ closeForm, comments, adv }) {
     const navigate = useNavigate();
@@ -60,7 +60,7 @@ function AdvReviews({ closeForm, comments, adv }) {
                     <S.ReviewsList>
                         {comments.map((el, index) => (
                             <S.Review key={index}>
-                                {el.author.id === currentUser.id && (
+                                {el.author.id === currentUser?.id && (
                                     <S.ReviewDeleteIcon>
                                         <svg
                                             width="17"

@@ -5,7 +5,7 @@ import CloseFormButton from "../close-form-button/CloseFormButton";
 import plug from "../../assets/static/add_adv_photo_plug.jpg";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
-import { checkActualAccessToken } from "../../decorators";
+import { checkActualAccessToken } from "../../utils/decorators";
 
 function CreateAdvForm({ closeForm }) {
     const navigate = useNavigate();

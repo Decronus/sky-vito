@@ -2,7 +2,7 @@ import { useState } from "react";
 import MainButton from "../main-button/MainButton";
 import * as S from "./styles";
 import Queries from "../../services/queries.service";
-import { checkActualAccessToken } from "../../decorators";
+import { checkActualAccessToken } from "../../utils/decorators";
 
 function UpdatePasswordForm() {
     const [oldPassword, setOldPassword] = useState("");

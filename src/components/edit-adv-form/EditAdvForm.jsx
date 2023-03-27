@@ -6,7 +6,7 @@ import MainButton from "../main-button/MainButton";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/consts";
-import { checkActualAccessToken } from "../../decorators";
+import { checkActualAccessToken } from "../../utils/decorators";
 
 function EditAdvForm({ adv, closeForm }) {
     function extractImages(adv) {

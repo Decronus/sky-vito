@@ -1,6 +1,6 @@
-import Queries from "./services/queries.service";
-import { ACCESS_TOKEN } from "./utils/consts";
-import { REFRESH_TOKEN } from "./utils/consts";
+import Queries from "../services/queries.service";
+import { ACCESS_TOKEN } from "./consts";
+import { REFRESH_TOKEN } from "./consts";
 
 export async function checkActualAccessToken(fn) {
     if (Math.trunc(Date.now() / 1000) - localStorage.getItem("timeTokensUpdated") > 2 * 60) {

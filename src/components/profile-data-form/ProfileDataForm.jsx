@@ -7,7 +7,7 @@ import Queries from "../../services/queries.service";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../store/actions/creators/main";
 import UpdatePasswordForm from "./UpdatePasswordForm";
-import { checkActualAccessToken } from "../../decorators";
+import { checkActualAccessToken } from "../../utils/decorators";
 
 function ProfileDataForm() {
     const dispatch = useDispatch();

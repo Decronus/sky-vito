@@ -1,5 +1,5 @@
-import axiosInstance from "../axios";
-import { auth } from "../axios";
+import axiosInstance from "../utils/axios";
+import { auth } from "../utils/axios";
 
 class Queries {
     getCurrentUser() {
