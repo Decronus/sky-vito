@@ -5,7 +5,7 @@ import CloseFormButton from "../close-form-button/CloseFormButton";
 import plug from "../../assets/static/add_adv_photo_plug.jpg";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
-import { checkActualAccessToken } from "../../utils/decorators";
+import { checkActualAccessToken } from "../../utils/functions";
 
 function CreateAdvForm({ closeForm }) {
     const navigate = useNavigate();
@@ -41,8 +41,10 @@ function CreateAdvForm({ closeForm }) {
         setAdvImages(tempArray);
     };
 
-    const createAdv = (event) => {
+    const createAdv = async (event) => {
         event.preventDefault();
+
+        await checkActualAccessToken();
 
         const body = {
             title: title,
@@ -156,7 +158,7 @@ function CreateAdvForm({ closeForm }) {
                         </S.FormInputPriceWrapper>
                     </S.InputWrapper>
                     <div>
-                        <MainButton active={title} onClick={(event) => checkActualAccessToken(createAdv(event))}>
+                        <MainButton active={title} onClick={(event) => createAdv(event)}>
                             Опубликовать
                         </MainButton>
                     </div>

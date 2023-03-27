@@ -6,7 +6,8 @@ import MainButton from "../main-button/MainButton";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/consts";
-import { checkActualAccessToken } from "../../utils/decorators";
+import { checkActualAccessToken } from "../../utils/functions";
+import { ACCESS_TOKEN } from "../../utils/consts";
 
 function EditAdvForm({ adv, closeForm }) {
     function extractImages(adv) {
@@ -57,8 +58,10 @@ function EditAdvForm({ adv, closeForm }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newAdvData]);
 
-    function updateAdv(event) {
+    async function updateAdv(event) {
         event.preventDefault();
+
+        await checkActualAccessToken();
 
         const body = {
             title: title,
@@ -66,6 +69,7 @@ function EditAdvForm({ adv, closeForm }) {
             price: price,
         };
 
+        console.log("function access_token", localStorage.getItem(ACCESS_TOKEN));
         Queries.patchUpdateAdv(adv.id, body)
             .then((adv) => {
                 if (files.length) {
@@ -114,7 +118,9 @@ function EditAdvForm({ adv, closeForm }) {
         setAdvImages(tempArray);
     };
 
-    const deleteImageFromAdv = (advId, url, index) => {
+    const deleteImageFromAdv = async (advId, url, index) => {
+        await checkActualAccessToken();
+
         if (url) {
             Queries.deleteImageFromAdv(advId, url)
                 .then(() => {
@@ -189,9 +195,7 @@ function EditAdvForm({ adv, closeForm }) {
                                                 //     deleteImageFromAdv(adv.id, adv.images[index]?.url, index)
                                                 // }
                                                 onClick={() =>
-                                                    checkActualAccessToken(
-                                                        deleteImageFromAdv(adv.id, adv.images[index]?.url, index)
-                                                    )
+                                                    deleteImageFromAdv(adv.id, adv.images[index]?.url, index)
                                                 }
                                             >
                                                 <svg
@@ -232,7 +236,7 @@ function EditAdvForm({ adv, closeForm }) {
                         </S.FormInputPriceWrapper>
                     </S.InputWrapper>
                     <div>
-                        <MainButton active={activeButton} onClick={(event) => checkActualAccessToken(updateAdv(event))}>
+                        <MainButton active={activeButton} onClick={(event) => updateAdv(event)}>
                             Сохранить
                         </MainButton>
                     </div>

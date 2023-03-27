@@ -7,7 +7,7 @@ import Queries from "../../services/queries.service";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../store/actions/creators/main";
 import UpdatePasswordForm from "./UpdatePasswordForm";
-import { checkActualAccessToken } from "../../utils/decorators";
+import { checkActualAccessToken } from "../../utils/functions";
 
 function ProfileDataForm() {
     const dispatch = useDispatch();
@@ -43,7 +43,9 @@ function ProfileDataForm() {
         hiddenFileInput.current.click();
     };
 
-    const uploadAvatar = () => {
+    const uploadAvatar = async () => {
+        await checkActualAccessToken();
+
         const fileUploaded = hiddenFileInput.current.files[0];
 
         const form = new FormData();
@@ -62,8 +64,10 @@ function ProfileDataForm() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newUserData]);
 
-    function updateUser(event) {
+    async function updateUser(event) {
         event.preventDefault();
+
+        await checkActualAccessToken();
 
         const body = {
             name: name,
@@ -91,7 +95,7 @@ function ProfileDataForm() {
                     name="avatar"
                     accept="image/*"
                     ref={hiddenFileInput}
-                    onChange={() => checkActualAccessToken(uploadAvatar())}
+                    onChange={() => uploadAvatar()}
                 />
             </S.AvatarWrapper>
             <S.TextData>
@@ -138,14 +142,11 @@ function ProfileDataForm() {
                         onChange={(event) => setPhone(event.target.value)}
                     />
                 </S.InputWrapper>
-
-                <MainButton
-                    type="submit"
-                    active={activeButton}
-                    onClick={(event) => checkActualAccessToken(updateUser(event))}
-                >
-                    Сохранить
-                </MainButton>
+                <div>
+                    <MainButton type="submit" active={activeButton} onClick={(event) => updateUser(event)}>
+                        Сохранить
+                    </MainButton>
+                </div>
 
                 <UpdatePasswordForm />
             </S.TextData>

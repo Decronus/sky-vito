@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { GlobalStyle } from "../../global-styles";
-import Header from "../../components/header";
+import Header from "../header/Header";
 import Search from "../search/Search";
 import { Outlet } from "react-router-dom";
 import Queries from "../../services/queries.service";
@@ -45,14 +45,6 @@ function RootLayout() {
 
     useEffect(() => {
         checkCurrentUser();
-
-        // const interval = setInterval(() => {
-        //     checkCurrentUser();
-        //     console.log("updateUser");
-        // }, 30 * 1000);
-
-        // return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

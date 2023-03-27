@@ -11,7 +11,7 @@ import PhoneButton from "../../components/phone-button/PhoneButton";
 import Queries from "../../services/queries.service";
 import { LOGIN_ROUTE } from "../../utils/consts";
 import { useLocation } from "react-router-dom";
-import { checkActualAccessToken } from "../../utils/decorators";
+import { checkActualAccessToken } from "../../utils/functions";
 
 function AdvPage() {
     const navigate = useNavigate();

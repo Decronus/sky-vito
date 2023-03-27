@@ -18,5 +18,6 @@ export default axiosInstance;
 
 export const auth = () => {
     let accessToken = localStorage.getItem(ACCESS_TOKEN);
+
     return accessToken ? { Authorization: "Bearer " + accessToken } : {};
 };

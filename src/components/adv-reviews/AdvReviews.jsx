@@ -7,7 +7,7 @@ import { userSelector } from "../../store/selectors/main";
 import Queries from "../../services/queries.service";
 import { useNavigate } from "react-router-dom";
 import { ADV_ROUTE } from "../../utils/consts";
-import { checkActualAccessToken } from "../../utils/decorators";
+import { checkActualAccessToken } from "../../utils/functions";
 
 function AdvReviews({ closeForm, comments, adv }) {
     const navigate = useNavigate();
@@ -15,8 +15,10 @@ function AdvReviews({ closeForm, comments, adv }) {
 
     const [text, setText] = useState("");
 
-    const addComment = (event) => {
+    const addComment = async (event) => {
         event.preventDefault();
+
+        await checkActualAccessToken();
 
         Queries.postCreateAdsComment(adv?.id, { text: text })
             .then(() => {
@@ -45,11 +47,7 @@ function AdvReviews({ closeForm, comments, adv }) {
                                     onChange={(event) => setText(event.target.value)}
                                 />
                                 <div>
-                                    <MainButton
-                                        active={text}
-                                        type="submit"
-                                        onClick={(event) => checkActualAccessToken(addComment(event))}
-                                    >
+                                    <MainButton active={text} type="submit" onClick={(event) => addComment(event)}>
                                         Опубликовать
                                     </MainButton>
                                 </div>

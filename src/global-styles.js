@@ -78,6 +78,6 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const StyledContainer = styled.div`
-    width: 100%;
+    width: 1158px;
     margin: 0 auto;
 `;

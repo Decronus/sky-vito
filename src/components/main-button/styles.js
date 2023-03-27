@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-    align-self: flex-start;
     background-color: #009ee4;
     padding: 13px 37px;
     border-radius: 6px;

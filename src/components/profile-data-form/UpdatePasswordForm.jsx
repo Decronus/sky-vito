@@ -2,15 +2,17 @@ import { useState } from "react";
 import MainButton from "../main-button/MainButton";
 import * as S from "./styles";
 import Queries from "../../services/queries.service";
-import { checkActualAccessToken } from "../../utils/decorators";
+import { checkActualAccessToken } from "../../utils/functions";
 
 function UpdatePasswordForm() {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword1, setNewPassword1] = useState("");
     const [newPassword2, setNewPassword2] = useState("");
 
-    const updatePassword = (event) => {
+    const updatePassword = async (event) => {
         event.preventDefault();
+
+        await checkActualAccessToken();
 
         if (newPassword1 === newPassword2) {
             const body = {
@@ -67,14 +69,15 @@ function UpdatePasswordForm() {
                 </S.InputWrapper>
             </S.InputsNameBlock>
 
-            <MainButton
-                type="submit"
-                active={oldPassword && newPassword1 && newPassword2}
-                // onClick={updatePassword}
-                onClick={(event) => checkActualAccessToken(updatePassword(event))}
-            >
-                Поменять пароль
-            </MainButton>
+            <div>
+                <MainButton
+                    type="submit"
+                    active={oldPassword && newPassword1 && newPassword2}
+                    onClick={(event) => updatePassword(event)}
+                >
+                    Поменять пароль
+                </MainButton>
+            </div>
         </>
     );
 }

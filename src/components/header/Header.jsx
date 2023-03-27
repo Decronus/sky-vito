@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import * as S from "./styles";
-import HeaderButton from "./header-button";
+import HeaderButton from "./header-button/HeaderButton";
 import { StyledContainer } from "../../global-styles";
 import CreateAdvForm from "../create-adv-form/CreateAdvForm";
 import { useSelector, useDispatch } from "react-redux";
