@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Сервис аналог Avito
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Автор frontend-части – Алексей Зотин.
 
-## Available Scripts
+## Структура проекта
 
-In the project directory, you can run:
+Папка back-skyVito – backend для проекта. Инструкция по его запуску ниже.
 
-### `npm start`
+Папка src – основные материалы проекта:
+• Папка assets — шрифты и изображения
+• Папка components - компоненты React, используемые в проекте
+• Папка pages - страницы, для которых прописаны роуты
+• Папка router - содержит два файла: router.jsx, где описаны сами роуты, и loader.functions.js, где описаны сетевые запросы с помощью React Router
+• Папка services - axios-запросы
+• Папка store - компоненты Redux
+• Папка utils - вспомогательные компоненты: axios instance, константы, декораторы
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Использованные технологии
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Javascript, React.js, Redux, React Router, Styled Components, Axios
 
-### `npm test`
+## Инструкция по запуску
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Для начала работы склонируйте проект из репозитория себе на компьютер
 
-### `npm run build`
+### Инструкция по запуску backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Для запуска бэкенда вам потребуется установить Docker.
+2. Скачайте версию для своей операционной системы и запустите.
+3. Далее следуйте инструкциям установщика.
+4. После установки перезагрузите компьютер.
+5. Запустите Docker с помощью ярлыка.
+6. Через терминал перейдите в папку back-skyVito .
+7. Запустите в терминале команду: docker-compose -f docker-compose-backend.yaml up -d
+8. После первого выполнения команды все образы подтянуться, но могут не запуститься, в этом случае повторно выполните команду: docker-compose -f docker-compose-backend.yaml up -d
+9. После этого бэкенд и Swagger будут доступны по адресу http://localhost:8090/
+10. Чтобы остановить работу бэкенда выполните:docker-compose down
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Инструкция по запуску клиента
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Перейдите в папку с проектом
+2. Установите все зависимости командой npm i
+3. Запустите проект командой npm start
 
-### `npm run eject`
+### Реализованный функционал
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Регистрация и авторизация пользователей
+Вход/выход
+Получение и обновление профиля
+Смена пароля
+Просмотр объявлений без авторизации
+Просмотр объявлений, редактирование, удаление с авторизацией
+Просмотр комментариев без авторизации
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Получение списка объявлений
+Получение одного объявления
+Создание объявления
+Редактирование и удаление своего объявления
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Получение списка комментариев
+Создание комментариев
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Сохранение и получение изображений
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Реализована система доступов (анонимный пользователь, авторизованный пользователь)
+Пользователю не выводится чужая информация
