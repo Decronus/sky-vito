@@ -48,8 +48,10 @@ class LoaderFunctions {
     async getAdvAndComments(id) {
         const adv = await this.getAdvById(id);
         const comments = await this.getAdsComments(id);
+        const advUser = await this.getUser(adv.user_id);
+        console.log("adv", adv);
 
-        return [adv, comments];
+        return [adv, comments, advUser];
     }
 }
 

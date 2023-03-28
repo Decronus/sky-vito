@@ -16,7 +16,7 @@ import { checkActualAccessToken } from "../../utils/functions";
 function AdvPage() {
     const navigate = useNavigate();
     const location = useLocation();
-    const [adv, comments] = useLoaderData();
+    const [adv, comments, advUser] = useLoaderData();
     const currentUser = useSelector(userSelector);
 
     const imagesListRef = useRef(null);
@@ -111,7 +111,7 @@ function AdvPage() {
                                     </MainButton>
                                 </>
                             ) : (
-                                <PhoneButton user={currentUser} />
+                                <PhoneButton user={advUser} />
                             )}
                         </S.AdvSettingsButtons>
 
